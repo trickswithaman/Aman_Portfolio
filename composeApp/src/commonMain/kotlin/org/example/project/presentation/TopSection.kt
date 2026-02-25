@@ -124,7 +124,7 @@ fun LeftBox(isMobile: Boolean) {
                     append("Multiplatform\nEngineer")
                 }
             },
-            fontSize = if (isMobile) 24.ssp else 32.ssp,
+            fontSize = if (isMobile) 23.ssp else 28.ssp,
             lineHeight = if (isMobile) 28.ssp else 36.ssp,
             fontFamily = FontFamily(Font(Res.font.Montserrat_Black)),
             color = TextDark

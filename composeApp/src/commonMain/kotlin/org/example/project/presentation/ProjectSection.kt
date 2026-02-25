@@ -20,7 +20,7 @@ import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun ProjectSection(isMobile: Boolean) {
+fun ProjectSection(isMobile: Boolean, onViewCaseStudy: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -50,7 +50,8 @@ fun ProjectSection(isMobile: Boolean) {
                 "Real-time data synchronization with Firebase Firestore."
             ),
             image = Res.drawable.ic_coding,
-            bgColor = Color(0xFFE5F1EF)
+            bgColor = Color(0xFFE5F1EF),
+            onViewCaseStudy = { onViewCaseStudy("Gym Management App") }
         )
 
         Spacer(modifier = Modifier.height(20.sdp))
@@ -66,7 +67,8 @@ fun ProjectSection(isMobile: Boolean) {
             ),
             image = Res.drawable.ic_coding,
             bgColor = Color(0xFF1E3A3A),
-            isReversed = true
+            isReversed = true,
+            onViewCaseStudy = { onViewCaseStudy("The Catholic App") }
         )
     }
 }
@@ -80,7 +82,8 @@ fun ProjectCard(
     points: List<String>,
     image: org.jetbrains.compose.resources.DrawableResource,
     bgColor: Color,
-    isReversed: Boolean = false
+    isReversed: Boolean = false,
+    onViewCaseStudy: () -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -92,16 +95,16 @@ fun ProjectCard(
         if (isMobile) {
             Column {
                 ProjectImage(image, bgColor, Modifier.fillMaxWidth().height(150.sdp))
-                ProjectDetails(title, description, tags, points, Modifier.fillMaxWidth())
+                ProjectDetails(title, description, tags, points, Modifier.fillMaxWidth(), onViewCaseStudy)
             }
         } else {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (isReversed) {
-                    ProjectDetails(title, description, tags, points, Modifier.weight(1.2f))
+                    ProjectDetails(title, description, tags, points, Modifier.weight(1.2f), onViewCaseStudy)
                     ProjectImage(image, bgColor, Modifier.weight(1f).height(250.sdp))
                 } else {
                     ProjectImage(image, bgColor, Modifier.weight(1f).height(250.sdp))
-                    ProjectDetails(title, description, tags, points, Modifier.weight(1.2f))
+                    ProjectDetails(title, description, tags, points, Modifier.weight(1.2f), onViewCaseStudy)
                 }
             }
         }
@@ -126,7 +129,14 @@ fun ProjectImage(image: org.jetbrains.compose.resources.DrawableResource, bgColo
 }
 
 @Composable
-fun ProjectDetails(title: String, description: String, tags: List<String>, points: List<String>, modifier: Modifier) {
+fun ProjectDetails(
+    title: String,
+    description: String,
+    tags: List<String>,
+    points: List<String>,
+    modifier: Modifier,
+    onViewCaseStudy: () -> Unit
+) {
     Column(
         modifier = modifier.padding(20.sdp),
         verticalArrangement = Arrangement.spacedBy(10.sdp)
@@ -172,7 +182,7 @@ fun ProjectDetails(title: String, description: String, tags: List<String>, point
             }
         }
 
-        TextButton(onClick = {}) {
+        TextButton(onClick = onViewCaseStudy) {
             Text("View Case Study →", fontSize = 7.ssp, color = PrimaryPurple, fontFamily = FontFamily(Font(Res.font.Montserrat_SemiBold)))
         }
     }

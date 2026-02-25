@@ -1,6 +1,5 @@
 package org.example.project.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,8 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontFamily
 import myportfolio.composeapp.generated.resources.*
@@ -18,10 +15,9 @@ import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
 import org.example.project.*
 import org.jetbrains.compose.resources.Font
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun TopBar(isMobile: Boolean, isSelected: MutableState<String>) {
+fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (String) -> Unit) {
     Surface(
         modifier = Modifier.fillMaxWidth().height(if (isMobile) 50.sdp else 40.sdp),
         color = White,
@@ -38,7 +34,10 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.wrapContentSize(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Box(
                         modifier = Modifier
                             .size(if (isMobile) 16.sdp else 12.sdp)
@@ -66,9 +65,9 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>) {
                         horizontalArrangement = Arrangement.spacedBy(15.sdp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        val menuItems = listOf("About", "Projects", "Experience", "Skills")
+                        val menuItems = listOf("About", "Skills", "Projects", "Experience")
                         menuItems.forEach { item ->
-                            TextButton(onClick = { isSelected.value = item }) {
+                            TextButton(onClick = { onNavigate(item) }) {
                                 Text(
                                     text = item,
                                     fontSize = 6.ssp,
@@ -81,7 +80,7 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>) {
                 }
 
                 Button(
-                    onClick = {},
+                    onClick = { onNavigate("Contact") },
                     colors = ButtonDefaults.buttonColors(containerColor = PrimaryPurple),
                     shape = RoundedCornerShape(20.sdp),
                     contentPadding = PaddingValues(horizontal = 16.sdp, vertical = 6.sdp)
