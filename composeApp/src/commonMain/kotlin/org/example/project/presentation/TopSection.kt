@@ -50,7 +50,9 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun TopSection (isMobile : Boolean){
     Column (
-        modifier = Modifier.wrapContentSize()
+        modifier = Modifier.wrapContentSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ){
         FlowRow(
             modifier = Modifier.fillMaxWidth().background(Color.White.copy(alpha = 0.3f)),
@@ -78,26 +80,29 @@ fun TopSection (isMobile : Boolean){
 
         FlowRow(
             modifier = Modifier.wrapContentSize(),
-            horizontalArrangement = Arrangement.spacedBy(8.sdp),
-            verticalArrangement = Arrangement.spacedBy(8.sdp),
+            horizontalArrangement = Arrangement.spacedBy(10.sdp),
+            verticalArrangement = Arrangement.spacedBy(10.sdp),
             maxLines = 2,
-            maxItemsInEachRow = if (!isMobile) 4 else 2
+
 
         ){
             MyCard(
-
+                isMobile = isMobile,
                 headingText = "Experience",
                 description = "1.5+ years"
             )
             MyCard(
-                headingText = "Experience",
+                isMobile = isMobile,
+                headingText = "Projects",
+                description = "3+ Done "
+            )
+            MyCard(
+                isMobile = isMobile,
+                headingText = "Tech Stack",
                 description = "1.5+ years"
             )
             MyCard(
-                headingText = "Experience",
-                description = "1.5+ years"
-            )
-            MyCard(
+                isMobile = isMobile,
                 headingText = "Experience",
                 description = "1.5+ years"
             )
@@ -128,24 +133,25 @@ fun MyCard(
             containerColor = Color.White
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 2.sdp
+            defaultElevation = 1.sdp
         )
 
 
     ){
         Column (
-            modifier = Modifier.wrapContentSize().padding(vertical = 15.sdp, horizontal = 18.sdp)
+            modifier = Modifier.wrapContentSize().padding(vertical =if (!isMobile) 15.sdp else 18.sdp, horizontal =if (!isMobile) 18.sdp else
+            22.sdp)
         ){
             Text(
                 text = headingText,
-                fontSize = 6.ssp,
+                fontSize = if (!isMobile) 6.ssp else 8.ssp,
                 color = Color.Gray.copy(0.8f),
                 fontFamily = FontFamily(Font(Res.font.Montserrat_Medium))
             )
 
             Text(
                 text = description,
-                fontSize = 10.ssp,
+                fontSize = if (!isMobile) 10.ssp else 12.ssp,
                 color = isSelectedColor,
                 fontFamily = FontFamily(Font(Res.font.Montserrat_SemiBold))
             )
