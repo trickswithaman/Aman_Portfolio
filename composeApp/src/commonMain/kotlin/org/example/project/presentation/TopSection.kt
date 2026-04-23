@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -24,14 +26,25 @@ import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun TopSection(isMobile: Boolean) {
+fun TopSection(
+    downloadResume: () -> Unit,
+    isMobile: Boolean,
+    totalProductionApp : Int = 4,
+    specialistCard: String = "Native & KMP",
+    leftBoxHeaderText : AnnotatedString,
+    leftBoxSummary : String = "",
+    totalExperience : String,
+
+    onViewProjectsButton: (String) -> Unit) {
+
     Column(
         modifier = Modifier.fillMaxWidth().padding(vertical = 20.sdp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         if (isMobile) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                LeftBox(isMobile = true)
+                LeftBox(downloadResume,isMobile = true, text = leftBoxHeaderText, summary = leftBoxSummary,onNavigate = onViewProjectsButton)
                 Spacer(modifier = Modifier.height(20.sdp))
                 CodeSnippetWindow(modifier = Modifier.fillMaxWidth())
             }
@@ -41,7 +54,7 @@ fun TopSection(isMobile: Boolean) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(modifier = Modifier.weight(1f)) {
-                    LeftBox(isMobile = false)
+                    LeftBox(downloadResume, text = leftBoxHeaderText, onNavigate = onViewProjectsButton, isMobile = false, summary = leftBoxSummary)
                 }
                 Spacer(modifier = Modifier.width(20.sdp))
                 Box(modifier = Modifier.weight(1f)) {
@@ -62,36 +75,36 @@ fun TopSection(isMobile: Boolean) {
                 modifier = cardModifier,
                 isMobile = isMobile,
                 headingText = "Experience",
-                description = "1.5+ Years",
-                icon = Res.drawable.ic_download
+                description = totalExperience,
+                icon = Res.drawable.ic_experience
             )
             MyCard(
                 modifier = cardModifier,
                 isMobile = isMobile,
-                headingText = "Systems Delivered",
-                description = "10+ Production",
-                icon = Res.drawable.ic_download
+                headingText = "Features Delivered",
+                description = "$totalProductionApp+ Production",
+                icon = Res.drawable.ic_rocket
             )
             MyCard(
                 modifier = cardModifier,
                 isMobile = isMobile,
                 headingText = "Specialist",
-                description = "KMP & Compose",
-                icon = Res.drawable.ic_download
+                description = specialistCard,
+                icon = Res.drawable.ic_certificate
             )
             MyCard(
                 modifier = cardModifier,
                 isMobile = isMobile,
                 headingText = "Portfolio",
                 description = "Cross-Platform",
-                icon = Res.drawable.ic_download
+                icon = Res.drawable.ic_portfolip
             )
         }
     }
 }
 
 @Composable
-fun LeftBox(isMobile: Boolean) {
+fun LeftBox(downloadResume : () -> Unit,isMobile: Boolean, text : AnnotatedString, summary : String , onNavigate: (String) -> Unit) {
     Column(
         modifier = Modifier.wrapContentSize(),
         horizontalAlignment = Alignment.Start,
@@ -100,7 +113,7 @@ fun LeftBox(isMobile: Boolean) {
         Row(
             modifier = Modifier
                 .background(PrimaryPurple.copy(alpha = 0.1f), RoundedCornerShape(20.sdp))
-                .padding(horizontal = 8.sdp, vertical = 4.sdp),
+                .padding(horizontal = 5.sdp, vertical = 2.sdp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
@@ -118,22 +131,17 @@ fun LeftBox(isMobile: Boolean) {
         }
 
         Text(
-            text = buildAnnotatedString {
-                append("Kotlin\n")
-                withStyle(style = SpanStyle(color = PrimaryPurple)) {
-                    append("Multiplatform\nEngineer")
-                }
-            },
-            fontSize = if (isMobile) 23.ssp else 28.ssp,
-            lineHeight = if (isMobile) 28.ssp else 36.ssp,
+            text = text,
+            fontSize = if (isMobile) 23.ssp else 25.ssp,
+            lineHeight = if (isMobile) 28.ssp else 30.ssp,
             fontFamily = FontFamily(Font(Res.font.Montserrat_Black)),
             color = TextDark
         )
 
         Text(
-            text = "Specializing in Compose and Clean Architecture to build high-performance, native-quality cross-platform applications that scale.",
-            fontSize = if (isMobile) 10.ssp else 7.ssp,
-            lineHeight = if (isMobile) 14.ssp else 11.ssp,
+            text = summary,
+            fontSize = if (isMobile) 10.ssp else 5.ssp,
+            lineHeight = if (isMobile) 14.ssp else 8.ssp,
             fontFamily = FontFamily(Font(Res.font.Montserrat_Medium)),
             color = TextLight,
             modifier = Modifier.padding(vertical = 8.sdp)
@@ -143,9 +151,11 @@ fun LeftBox(isMobile: Boolean) {
             modifier = Modifier.wrapContentSize(),
             horizontalArrangement = Arrangement.spacedBy(8.sdp)
         ) {
+
             Button(
-                onClick = {},
+                onClick = {onNavigate("Projects")},
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryPurple),
+                elevation = ButtonDefaults.buttonElevation(defaultElevation = 5.sdp),
                 shape = RoundedCornerShape(8.sdp),
                 contentPadding = PaddingValues(horizontal = 16.sdp, vertical = 8.sdp)
             ) {
@@ -156,8 +166,9 @@ fun LeftBox(isMobile: Boolean) {
                 )
             }
             OutlinedButton(
-                onClick = {},
+                onClick = {downloadResume()},
                 shape = RoundedCornerShape(8.sdp),
+
                 border = BorderStroke(1.sdp, lightGray),
                 contentPadding = PaddingValues(horizontal = 16.sdp, vertical = 8.sdp)
             ) {
@@ -189,7 +200,7 @@ fun CodeSnippetWindow(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(12.sdp))
             CodeLine("val", " engineer", " = ", "Engineer(", color1 = Color(0xFFC678DD), color2 = Color(0xFFE06C75))
             CodeLine("    name = ", "\"Aman Saxena\"", ",", "", color1 = Color(0xFFD19A66), color2 = Color(0xFF98C379))
-            CodeLine("    role = ", "\"KMP Expert\"", ",", "", color1 = Color(0xFFD19A66), color2 = Color(0xFF98C379))
+            CodeLine("    role = ", "\"Native Android & KMP Developer\"", ",", "", color1 = Color(0xFFD19A66), color2 = Color(0xFF98C379))
             CodeLine("    focus = ", "listOf(", "\"Compose\", \"Clean-Arch\"", ")", color1 = Color(0xFFD19A66), color2 = Color(0xFF61AFEF))
             CodeLine(")", "", "", "")
             Spacer(modifier = Modifier.height(8.sdp))
@@ -234,10 +245,9 @@ fun MyCard(
 ) {
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = CardBg),
+        colors = CardDefaults.cardColors(containerColor = White),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.sdp),
         shape = RoundedCornerShape(8.sdp),
-        border = BorderStroke(0.5.sdp, lightGray)
     ) {
         Column(
             modifier = Modifier.padding(12.sdp),

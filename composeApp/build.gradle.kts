@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -43,6 +42,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             // ssd and sdp
             implementation(libs.sdp.ssp.compose.multiplatform)
+
+            implementation(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

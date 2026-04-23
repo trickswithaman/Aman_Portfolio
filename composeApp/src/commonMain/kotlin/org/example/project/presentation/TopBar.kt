@@ -1,5 +1,6 @@
 package org.example.project.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,18 +9,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.font.FontFamily
 import myportfolio.composeapp.generated.resources.*
 import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
 import org.example.project.*
+import org.example.project.components.CustomButton
+import org.example.project.components.CustomText
 import org.jetbrains.compose.resources.Font
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (String) -> Unit) {
     Surface(
-        modifier = Modifier.fillMaxWidth().height(if (isMobile) 50.sdp else 40.sdp),
+        modifier = Modifier.fillMaxWidth().height(if (isMobile) 50.sdp else 30.sdp),
         color = White,
         shadowElevation = 1.sdp
     ) {
@@ -44,11 +50,11 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (Str
                             .background(PrimaryPurple, RoundedCornerShape(50)),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "A",
-                            color = White,
-                            fontSize = if (isMobile) 8.ssp else 6.ssp,
-                            fontFamily = FontFamily(Font(Res.font.Montserrat_Bold))
+                        Image(
+                            painter = painterResource(Res.drawable.ic_topbar),
+                            contentDescription = null,
+                            modifier = Modifier.size(6.sdp),
+                            colorFilter = ColorFilter.tint(Color.White),
                         )
                     }
                     Spacer(modifier = Modifier.width(6.sdp))
@@ -62,35 +68,31 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (Str
 
                 if (!isMobile) {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(15.sdp),
+                        modifier = Modifier.weight(1f).padding(horizontal = 5.sdp),
+                        horizontalArrangement = Arrangement.spacedBy(3.sdp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+
+                        Spacer(Modifier.weight(1f))
                         val menuItems = listOf("About", "Skills", "Projects", "Experience")
                         menuItems.forEach { item ->
-                            TextButton(onClick = { onNavigate(item) }) {
-                                Text(
+                            TextButton(
+                                onClick = { onNavigate(item)  }) {
+                                CustomText(
                                     text = item,
                                     fontSize = 6.ssp,
                                     color = if (isSelected.value == item) PrimaryPurple else TextLight,
-                                    fontFamily = FontFamily(Font(Res.font.Montserrat_SemiBold))
                                 )
                             }
                         }
                     }
+                } else {
+                    Spacer(modifier = Modifier.weight(1f))
                 }
-
-                Button(
-                    onClick = { onNavigate("Contact") },
-                    colors = ButtonDefaults.buttonColors(containerColor = PrimaryPurple),
-                    shape = RoundedCornerShape(20.sdp),
-                    contentPadding = PaddingValues(horizontal = 16.sdp, vertical = 6.sdp)
-                ) {
-                    Text(
-                        text = "Contact me",
-                        fontSize = if (isMobile) 8.ssp else 6.ssp,
-                        fontFamily = FontFamily(Font(Res.font.Montserrat_Bold))
-                    )
-                }
+                CustomButton(
+                    text = "Contact Me",
+                    onClick = { onNavigate("Contact")}
+                )
             }
         }
     }
