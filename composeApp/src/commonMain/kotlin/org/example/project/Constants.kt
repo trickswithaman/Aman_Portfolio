@@ -6,74 +6,108 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import myportfolio.composeapp.generated.resources.Res
-import myportfolio.composeapp.generated.resources.gym_login
 import myportfolio.composeapp.generated.resources.ic_coding
-import myportfolio.composeapp.generated.resources.gym_otp
-import myportfolio.composeapp.generated.resources.gym_register_members
-import myportfolio.composeapp.generated.resources.gum_select_package
-import myportfolio.composeapp.generated.resources.gym_coach_list
-import myportfolio.composeapp.generated.resources.gym_member_list
 
 object PortfolioConstants {
     // Basic Info
-    const val NAME = "Aman Saxena"
-    const val EMAIL = "trickswithaman183@gmail.com"
-    const val PHONE_NUMBER = "918272890216"
+    const val NAME = "Shubham Gupta"
+    const val EMAIL = "Shubhamgupta7536@gmail.com"
+    const val PHONE_NUMBER = "917536018790"
     const val WHATSAPP_URL = "https://wa.me/$PHONE_NUMBER"
-    const val GITHUB_URL = "https://github.com/trickswithaman"
-    const val LINKEDIN_URL = "https://linkedin.com/in/aman-saxena-15a515329"
+    const val GITHUB_URL = "https://github.com/Shubh7536"
+    const val LINKEDIN_URL = "https://linkedin.com/in/shubhamgupta-1842981a1"
     const val MAIL_TO = "mailto:$EMAIL"
-    const val COPYRIGHT_TEXT = "© 2026 Portfolio. Designed for the Future."
+    const val COPYRIGHT_TEXT = "© 2024 Shubham Gupta. All rights reserved."
 
     // Career Timeline
-    const val START_YEAR = 2024
-    const val START_MONTH = 11
+    const val START_YEAR = 2018
+    const val START_MONTH = 7
 
     // Hero Section
     val heroData = HeroData(
         headerText = buildAnnotatedString {
-            append("Native\n")
+            append("Lead\n")
             withStyle(style = SpanStyle(color = PrimaryPurple)) {
                 append("Android & KMP \nDeveloper")
             }
         },
-        summary = "Android Developer and KMP Specialist building scalable, high-quality apps for Fintech & SaaS, specializing in sharing business logic across Android, iOS, and Web.",
-        totalProductionApps = 4,
-        specialistCard = "Native & KMP"
+        summary = "Accomplished Lead Android Developer with 7+ years of experience building 15+ production-grade mobile apps across fintech, SaaS, and enterprise domains.",
+        totalProductionApps = 15,
+        specialistCard = "Lead Android & KMP"
     )
 
     // About Me Section
     val aboutMeData = AboutMeData(
-        leftText = "Building scalable applications with modern Android development practices and clean architecture.",
+        leftText = "Leading teams and architecting scalable applications with modern Android development practices.",
         rightText = buildAnnotatedString {
-            append("Android Developer with 1.5+ years of experience building scalable and maintainable applications using ")
+            append("Lead Android Developer with ")
             withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = TextDark)) {
-                append("Kotlin, Jetpack Compose, and Kotlin Multiplatform")
+                append("7+ years of experience")
             }
-            append(". I focus on writing clean, modular code and designing applications that are easy to scale and maintain.\n\n")
-            append("My approach is centered around performance, code quality, and delivering reliable user experiences. I continuously explore modern Android development practices and aim to build applications that follow industry standards.")
+            append(" building production-grade mobile apps across fintech, SaaS, and enterprise domains. Currently leading a team of 5+ developers at ")
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = TextDark)) {
+                append("Lentra.AI")
+            }
+            append(".\n\nExpert in ")
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = TextDark)) {
+                append("Kotlin, Jetpack Compose, Kotlin Multiplatform (KMP), and Clean Architecture")
+            }
+            append(". I have a proven track record of ")
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = TextDark)) {
+                append("improving team velocity by 30% and reducing app crash rates by 35%")
+            }
+            append(" through proactive architecture decisions and performance optimization.")
         }
     )
 
     // Skills
     val skillsList = listOf(
-        "Kotlin", "Jetpack Compose", "Kotlin Multiplatform (KMP)", "MVVM",
-        "Clean Architecture", "Kotlin Coroutines", "State Management",
-        "REST API Integration", "Retrofit", "Ktor", "Firebase",
-        "Room Database", "Git & GitHub", "Postman", "Debugging"
+        "Kotlin", "Jetpack Compose", "Kotlin Multiplatform (KMP)", "Java",
+        "MVVM", "Clean Architecture", "Modularization", "Coroutines",
+        "Hilt", "Koin", "Ktor", "Retrofit", "Room DB",
+        "Firebase", "CI/CD", "Unit Testing", "Git", "Agile/Scrum"
     )
 
     // Experiences
     val experiences = listOf(
         ExperienceData(
-            company = "Solvonix Technologies",
-            role = "Android Developer",
-            period = "Dec 2024 - Present",
+            company = "Lentra.AI Pvt. Ltd.",
+            role = "Lead Software Developer (Android)",
+            period = "Oct 2023 - Present",
             points = listOf(
-                "Designed and delivered features across 4+ live Android and cross-platform apps, including fintech products with 100K+ active users.",
-                "Architected and implemented shared KMP modules targeting Android, iOS, and Web — reducing duplicate business logic by ~60%.",
-                "Reduced app crash rate by ~35% via systematic crash analysis with Firebase Crashlytics and lifecycle optimization.",
-                "Integrated 5+ REST APIs using Retrofit and Ktor, leveraging Kotlin Coroutines and Flow for non-blocking operations."
+                "Led a team of 5+ Android developers, driving architecture decisions and raising team output by 30%.",
+                "Architected and delivered the TVS Credit App, reducing loan approval time by 40% via CIBIL and BREx integration.",
+                "Established Kotlin + Jetpack Compose MVVM/Clean Architecture with Hilt and implemented CI/CD pipelines.",
+                "Reduced crash rate by 35% through proactive debugging with Android Profiler and Crashlytics."
+            )
+        ),
+        ExperienceData(
+            company = "InnovationM Technology Solutions",
+            role = "Sr. Android Developer",
+            period = "Jun 2022 - Oct 2023",
+            points = listOf(
+                "Developed GoNoGo, a dealer-facing finance platform, improving UI responsiveness and reducing bugs by 25%.",
+                "Authored comprehensive technical documentation, reducing onboarding time for new team members.",
+                "Redesigned key UI flows following Material Design guidelines, improving usability."
+            )
+        ),
+        ExperienceData(
+            company = "Tefe Information Technology",
+            role = "Android Developer",
+            period = "Dec 2019 - Jun 2022",
+            points = listOf(
+                "Led development of 15+ Android apps across project management, HR, real-time chat, and IoT domains.",
+                "Implemented real-time features using Socket.io for instant messaging and live project tracking.",
+                "Integrated HyperPay payment gateway and built geo-based attendance systems."
+            )
+        ),
+        ExperienceData(
+            company = "TPS Solution",
+            role = "Jr. Android Developer",
+            period = "Jul 2018 - Dec 2019",
+            points = listOf(
+                "Built 2 Android applications from scratch, including Palm Cuisine, a food ordering and tracking app.",
+                "Gained end-to-end experience in app development, Play Store deployment, and client delivery."
             )
         )
     )
@@ -81,38 +115,38 @@ object PortfolioConstants {
     // Projects (Main View)
     val projects = listOf(
         ProjectData(
-            projectName = "Musklr — Gym Management System",
-            projectDescription = "A cross-platform SaaS solution built with Kotlin Multiplatform to streamline gym operations, member engagement, and staff management across Android, iOS, and Web.",
-            skillTags = listOf("Kotlin", "Jetpack Compose", "KMP", "Koin", "MVI", "Ktor", "Firebase"),
+            projectName = "TVS Credit App",
+            projectDescription = "End-to-end digital loan platform for consumer durable and mobile loans, handling high-volume API integrations and serving thousands of customers.",
+            skillTags = listOf("Kotlin", "Jetpack Compose", "MVVM", "Clean Architecture", "Hilt", "Coroutines"),
             impPoints = listOf(
-                "Delivered a single shared codebase across Android, iOS, and Web, eliminating ~60% of platform-specific code duplication.",
-                "Architected MVI pattern with Koin dependency injection for a fully testable and maintainable codebase.",
-                "Built core features: real-time attendance tracking and subscription lifecycle management."
+                "Reduced loan approval time by 40% through CIBIL and BREx integration.",
+                "Architected with modern MVVM/Clean Architecture and Hilt for dependency injection.",
+                "Handled full journey from application to disbursement for thousands of customers."
             ),
-            image = Res.drawable.gym_login,
+            image = Res.drawable.ic_coding,
             imageBackgroundColor = Color(0xFFE5F1EF)
         ),
         ProjectData(
-            projectName = "LoanDigit — Personal Loan App",
-            projectDescription = "Live fintech app serving 100,000+ users, featuring e-KYC onboarding, EMI tracking, and RBI-compliant transparency.",
-            skillTags = listOf("Kotlin", "Jetpack Compose", "MVVM", "Retrofit", "Firebase", "Fintech"),
+            projectName = "GoNoGo — Dealer Finance",
+            projectDescription = "Dealer-facing finance platform for managing loan approvals, featuring real-time verification and streamlined dealer workflows.",
+            skillTags = listOf("Kotlin", "Java", "Volley", "MVP", "IDFY", "Material Design"),
             impPoints = listOf(
-                "Implemented e-KYC onboarding flow and EMI repayment tracking screens for 100K+ active users.",
-                "Delivered Retrofit-based REST API integrations for lender assessment and credit scoring.",
-                "Built RBI-compliant UI screens with full APR disclosures and processing fee transparency."
+                "Improved UI responsiveness and reduced reported bugs by 25%.",
+                "Integrated IDFY for secure digital verification and identity management.",
+                "Redesigned key UI flows to improve usability and reduce user friction."
             ),
             image = Res.drawable.ic_coding,
             imageBackgroundColor = Color(0xFFF0F4F8),
             isReversed = true
         ),
         ProjectData(
-            projectName = "LoanDigit Partner — Agent / DSA App",
-            projectDescription = "A lead management pipeline for financial agents, featuring credit checks, commission payouts, and role-specific onboarding.",
-            skillTags = listOf("Kotlin", "Jetpack Compose", "MVVM", "Retrofit", "Firebase"),
+            projectName = "EYENAK — Project Management",
+            projectDescription = "Comprehensive project management tool with real-time chat, calendar, task management, and secure payment integration.",
+            skillTags = listOf("Kotlin", "Retrofit", "Room DB", "Socket.io", "HyperPay", "MVVM"),
             impPoints = listOf(
-                "Implemented lead management pipeline (onboarding → credit check → approval → disbursement) with state-driven UI.",
-                "Delivered real-time commission payout and instant bank transfer features using secure backend APIs.",
-                "Built role-specific onboarding flows supporting multi-type agent registration."
+                "Implemented real-time chat and live project tracking using Socket.io.",
+                "Integrated HyperPay payment gateway for secure in-app transactions.",
+                "Built a robust geo-based attendance and HR management system."
             ),
             image = Res.drawable.ic_coding,
             imageBackgroundColor = Color(0xFFE8F5E9)
@@ -122,109 +156,106 @@ object PortfolioConstants {
     // Case Studies (Detail View)
     fun getCaseStudy(projectName: String): CaseStudyData {
         return when {
-            projectName.contains("Musklr") -> CaseStudyData(
-                title = "Musklr Gym\nManagement System",
-                description = "A cross-platform SaaS solution built with Kotlin Multiplatform to streamline gym operations, member engagement, and staff management across Android, iOS, and Web.",
-                tags = listOf("KMP", "Compose Multiplatform", "Firebase", "MVI", "Ktor", "Koin"),
-                heroImage = Res.drawable.gym_login,
+            projectName.contains("TVS Credit") -> CaseStudyData(
+                title = "TVS Credit\nDigital Loan App",
+                description = "An end-to-end digital loan platform handling high-volume API integrations and serving thousands of customers.",
+                tags = listOf("Kotlin", "Jetpack Compose", "MVVM", "Hilt", "Clean Architecture"),
+                heroImage = Res.drawable.ic_coding,
                 heroBgColor = Color(0xFFE5F1EF),
-                problem = "Traditional gym management systems are often fragmented, relying on separate tools for member tracking, billing, and scheduling. This creates data silos and operational friction. Gym owners needed a unified ecosystem that provides a seamless experience for both staff on desktops and members on mobile devices, while minimizing development costs for multiple platforms.",
+                problem = "The loan approval process was traditionally slow and manual, leading to customer drop-offs. TVS Credit needed a fast, automated digital solution to handle eligibility checks and disbursements in real-time.",
                 architectureItems = listOf(
-                    "Clean Architecture" to "Structured into Core, Data, Domain, and Presentation layers for maximum decoupling and scalability.",
-                    "MVI Pattern" to "Predictable state management using Model-View-Intent with a shared BaseViewModel across KMP.",
-                    "Use Case Driven" to "Domain logic encapsulated in specialized UseCases, making the business layer testable and modular.",
-                    "Koin DI & Ktor" to "Lightweight dependency injection and modern asynchronous networking for a seamless multiplatform experience."
+                    "Clean Architecture" to "Separated into layers for better maintainability and scaling of complex fintech logic.",
+                    "MVVM Pattern" to "Ensuring a clean separation between UI and business logic.",
+                    "Hilt DI" to "Standardized dependency injection for better testability and modularity.",
+                    "CI/CD Pipelines" to "Automated build and release process to maintain high delivery velocity."
                 ),
                 features = listOf(
-                    "Attendance Tracking" to "QR based check-in and real-time attendance dashboards for managers.",
-                    "Subscriptions" to "Automated billing, renewal reminders, and multiple membership tier support.",
-                    "Role Based Access" to "Different UI and permissions for Owners, Staff, and Members.",
-                    "Cross-Platform" to "Seamless experience across Android, iOS, and Web with 100% shared logic."
+                    "CIBIL Integration" to "Real-time eligibility check via credit score integration.",
+                    "BREx Rating" to "Automated business rule engine for instant loan decisions.",
+                    "End-to-End Journey" to "Full loan lifecycle from application to disbursement.",
+                    "High Performance" to "Optimized for high-volume API integrations and large user base."
                 ),
                 mockups = listOf(
-                    "Sign In Screen" to Res.drawable.gym_login,
-                    "OTP Verification" to Res.drawable.gym_otp,
-                    "Member Registration" to Res.drawable.gym_register_members,
-                    "Plan Selection" to Res.drawable.gum_select_package,
-                    "Coach Directory" to Res.drawable.gym_coach_list,
-                    "Member Directory" to Res.drawable.gym_member_list
+                    "Loan Application" to Res.drawable.ic_coding,
+                    "Eligibility Check" to Res.drawable.ic_coding,
+                    "Disbursement Status" to Res.drawable.ic_coding
                 ),
                 challenges = listOf(
-                    "Platform-Specific UI" to "Ensuring a cohesive brand experience while respecting the UX paradigms of both Android and iOS.",
-                    "Design System Tokens" to "Implemented a shared design system with shared colors and typography, but platform-specific navigation."
+                    "Complex Integrations" to "Handling multiple third-party fintech APIs while maintaining app performance.",
+                    "Data Security" to "Implementing strict security measures for sensitive financial data."
                 ),
                 stats = listOf(
-                    Triple("70%", "Shared Codebase", "Across 3 platforms, significantly reducing development and bug fixing."),
-                    Triple("40%", "Development Speed", "Improved time-to-market for new features using shared business logic."),
-                    Triple("MVI", "Maintainability", "Simplified debugging through a unidirectional data flow and clear state.")
+                    Triple("40%", "Approval Speed", "Reduction in loan approval processing time."),
+                    Triple("30%", "Team Velocity", "Improved through architecture standardization."),
+                    Triple("100K+", "Users", "Serving a large scale of fintech customers.")
                 )
             )
-            projectName.contains("LoanDigit") && !projectName.contains("Partner") -> CaseStudyData(
-                title = "LoanDigit\nPersonal Loan App",
-                description = "A live fintech application serving over 100,000 users, providing a seamless digital lending experience with automated onboarding and real-time tracking.",
-                tags = listOf("Android", "Compose", "MVVM", "Retrofit", "Firebase", "Fintech"),
+            projectName.contains("GoNoGo") -> CaseStudyData(
+                title = "GoNoGo\nDealer Finance Platform",
+                description = "A dealer-facing finance platform for managing loan approvals and dealer workflows.",
+                tags = listOf("Kotlin", "Java", "MVP", "Volley", "IDFY"),
                 heroImage = Res.drawable.ic_coding,
                 heroBgColor = Color(0xFFF0F4F8),
-                problem = "The digital lending space requires high trust and transparency. Users often find loan applications complex and opaque. LoanDigit needed a solution that simplifies the e-KYC process and provides clear, RBI-compliant disclosures while handling high traffic volume.",
+                problem = "Dealers needed a streamlined way to submit loan applications and track approvals without navigating complex, fragmented systems.",
                 architectureItems = listOf(
-                    "MVVM Pattern" to "Separation of UI and business logic for better testability and maintainability.",
-                    "Retrofit API" to "Robust network layer with custom error handling for complex financial transactions.",
-                    "Firebase Auth" to "Secure and seamless phone-based authentication for user onboarding.",
-                    "Clean UI State" to "Reactive UI updates based on backend processing status for real-time feedback."
+                    "MVP Pattern" to "Implemented for clear separation of concerns in the dealer-facing application.",
+                    "Modular Design" to "Built with modular components for easier feature updates and testing.",
+                    "IDFY Integration" to "Secure identity verification for both dealers and applicants.",
+                    "Documentation" to "Comprehensive technical docs to reduce developer onboarding time."
                 ),
                 features = listOf(
-                    "e-KYC Onboarding" to "Streamlined digital verification process for instant loan eligibility.",
-                    "EMI Tracking" to "Comprehensive dashboard for users to track repayments and schedules.",
-                    "APR Transparency" to "Clear breakdown of fees and interest rates as per regulatory guidelines.",
-                    "Real-time Updates" to "Push notifications and status tracking for disbursement and approvals."
+                    "Loan Management" to "Centralized dashboard for dealers to manage all loan applications.",
+                    "Real-time Verification" to "Instant identity and document verification via IDFY.",
+                    "User Experience" to "Redesigned UI flows to reduce friction and improve usability.",
+                    "Performance" to "Optimized networking and UI responsiveness for better dealer efficiency."
                 ),
                 mockups = listOf(
-                    "Onboarding Flow" to Res.drawable.ic_coding,
-                    "Loan Calculator" to Res.drawable.ic_coding,
-                    "Repayment Dashboard" to Res.drawable.ic_coding
+                    "Dealer Dashboard" to Res.drawable.ic_coding,
+                    "Application Form" to Res.drawable.ic_coding,
+                    "Approval Status" to Res.drawable.ic_coding
                 ),
                 challenges = listOf(
-                    "High User Load" to "Optimizing performance to handle 100K+ active users without latency issues.",
-                    "Regulatory Compliance" to "Implementing strict RBI digital lending guidelines for data privacy and transparency."
+                    "Legacy Codebase" to "Maintaining and improving UI responsiveness within an existing MVP structure.",
+                    "Onboarding Speed" to "Created detailed documentation to bring new developers up to speed quickly."
                 ),
                 stats = listOf(
-                    Triple("100K+", "Downloads", "Achieved a significant milestone on the Google Play Store."),
-                    Triple("35%", "Crash Reduction", "Optimized app stability via systematic Firebase Crashlytics analysis."),
-                    Triple("3.8 ★", "User Rating", "Maintained a strong user satisfaction score in the competitive fintech space.")
+                    Triple("25%", "Bug Reduction", "Achieved through UI redesign and code stabilization."),
+                    Triple("Faster", "Onboarding", "Significantly reduced new member ramp-up time."),
+                    Triple("Material", "Design", "Improved usability by following standard design guidelines.")
                 )
             )
-            else -> CaseStudyData( // LoanDigit Partner
-                title = "LoanDigit Partner\nAgent / DSA App",
-                description = "A dedicated platform for Direct Selling Agents (DSAs) and financial partners to manage leads, track commissions, and facilitate loan disbursements.",
-                tags = listOf("Android", "Jetpack Compose", "MVVM", "Retrofit", "Firebase"),
+            else -> CaseStudyData( // EYENAK
+                title = "EYENAK\nProject Management",
+                description = "Comprehensive project management tool with real-time chat, calendar, task management, and secure payment integration.",
+                tags = listOf("Kotlin", "Retrofit", "Room", "Socket.io", "HyperPay"),
                 heroImage = Res.drawable.ic_coding,
                 heroBgColor = Color(0xFFE8F5E9),
-                problem = "Financial agents lacked a centralized tool to manage their lead pipelines and track their earnings. Managing multiple customer applications manually led to inefficiencies and delayed disbursements.",
+                problem = "Enterprises needed a unified tool that combines project management with real-time communication and HR features like geo-based attendance.",
                 architectureItems = listOf(
-                    "State-driven UI" to "Using Compose state management to handle complex multi-step onboarding flows.",
-                    "Secure API Layer" to "Implementing encrypted communication for sensitive financial and identity data.",
-                    "Role-based Logic" to "Dynamic UI adjustments based on agent types (DSA, Insurance, Advisor).",
-                    "Firebase Integration" to "Real-time sync of lead statuses and commission updates."
+                    "MVVM Pattern" to "Reactive architecture using Coroutines and LiveData for real-time updates.",
+                    "Socket.io" to "Low-latency bidirectional communication for instant messaging.",
+                    "Room DB" to "Offline-first capability for project data and attendance logs.",
+                    "HyperPay" to "Secure payment gateway integration for in-app enterprise services."
                 ),
                 features = listOf(
-                    "Lead Pipeline" to "End-to-end tracking from customer onboarding to disbursement.",
-                    "Commission Payouts" to "Instant bank transfer features and real-time earnings dashboard.",
-                    "Agent Verification" to "Automated profile verification and multi-type registration support.",
-                    "Document Manager" to "Secure upload and management of customer identity and financial documents."
+                    "Real-time Chat" to "Instant messaging with file sharing and project-specific channels.",
+                    "Geo-Attendance" to "Location-based attendance tracking for HR management.",
+                    "Project Tracking" to "Live status updates and task management for enterprise teams.",
+                    "Payment Integration" to "Secure in-app transactions for premium features and services."
                 ),
                 mockups = listOf(
-                    "Lead Dashboard" to Res.drawable.ic_coding,
-                    "Earnings History" to Res.drawable.ic_coding,
-                    "Agent Registration" to Res.drawable.ic_coding
+                    "Chat Interface" to Res.drawable.ic_coding,
+                    "Project Board" to Res.drawable.ic_coding,
+                    "Attendance Log" to Res.drawable.ic_coding
                 ),
                 challenges = listOf(
-                    "Complex State Flow" to "Managing the intricate states of loan applications across multiple parties.",
-                    "Security & Privacy" to "Ensuring highest level of security for customer lead data and agent credentials."
+                    "High Concurrency" to "Managing real-time chat and tracking for thousands of concurrent users.",
+                    "Multi-Domain" to "Balancing features across Project Management, HR, and IoT domains."
                 ),
                 stats = listOf(
-                    Triple("60%", "Efficiency", "Increased agent productivity by automating manual lead tracking."),
-                    Triple("Instant", "Payouts", "Enabled real-time commission settlements for verified partners."),
-                    Triple("Scalable", "Architecture", "Built to support thousands of agents across different financial tiers.")
+                    Triple("15+", "Apps Live", "Successfully delivered multiple production apps on Play Store."),
+                    Triple("Real-time", "Efficiency", "Improved team communication through integrated chat."),
+                    Triple("Geo-based", "Accuracy", "Reliable attendance tracking for remote and on-site teams.")
                 )
             )
         }
