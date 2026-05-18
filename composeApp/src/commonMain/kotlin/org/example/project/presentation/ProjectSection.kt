@@ -1,36 +1,58 @@
 package org.example.project.presentation
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
-import myportfolio.composeapp.generated.resources.*
+import myportfolio.composeapp.generated.resources.Montserrat_Bold
+import myportfolio.composeapp.generated.resources.Montserrat_Medium
+import myportfolio.composeapp.generated.resources.Montserrat_Regular
+import myportfolio.composeapp.generated.resources.Montserrat_SemiBold
+import myportfolio.composeapp.generated.resources.Res
 import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
-import org.example.project.*
-import org.jetbrains.compose.resources.DrawableResource
+import org.example.project.PrimaryPurple
+import org.example.project.ProjectData
+import org.example.project.TextDark
+import org.example.project.TextLight
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
 
-
 @Composable
-fun ProjectSection(isMobile: Boolean, onViewCaseStudy: (String) -> Unit, projectData: Array<ProjectData>) {
+fun ProjectSection(
+    isMobile: Boolean,
+    onViewCaseStudy: (String) -> Unit,
+    projectData: List<ProjectData>
+) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 12.sdp),
+        modifier = Modifier.fillMaxWidth().padding(vertical = 12.sdp),
         verticalArrangement = Arrangement.spacedBy(10.sdp)
 
     ) {
@@ -50,18 +72,17 @@ fun ProjectSection(isMobile: Boolean, onViewCaseStudy: (String) -> Unit, project
         )
 
 
-        projectData.forEach {  project ->
-        ProjectCard(
-            isMobile = isMobile,
-            title = project.projectName,
-            description = project.projectDescription,
-            tags = project.skillTags,
-            points = project.impPoints,
-            image = project.image,
-            isReversed = project.isReversed,
-            bgColor = project.imageBackgroundColor,
-            onViewCaseStudy = { onViewCaseStudy("Musklr") }
-        )
+        projectData.forEach { project ->
+            ProjectCard(
+                isMobile = isMobile,
+                title = project.projectName,
+                description = project.projectDescription,
+                tags = project.skillTags,
+                points = project.impPoints,
+                image = project.image,
+                isReversed = project.isReversed,
+                bgColor = project.imageBackgroundColor,
+                onViewCaseStudy = { onViewCaseStudy(project.projectName) })
         }
     }
 }
@@ -87,16 +108,40 @@ fun ProjectCard(
         if (isMobile) {
             Column {
 //                ProjectImage(image, bgColor, Modifier.height(150.sdp))
-                ProjectDetails(title, description, tags, points, Modifier.fillMaxWidth(), onViewCaseStudy, isMobile)
+                ProjectDetails(
+                    title,
+                    description,
+                    tags,
+                    points,
+                    Modifier.fillMaxWidth(),
+                    onViewCaseStudy,
+                    isMobile
+                )
             }
         } else {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxSize()) {
                 if (isReversed) {
-                    ProjectDetails(title, description, tags, points, Modifier.weight(1.2f), onViewCaseStudy, isMobile)
+                    ProjectDetails(
+                        title,
+                        description,
+                        tags,
+                        points,
+                        Modifier.weight(1.2f),
+                        onViewCaseStudy,
+                        isMobile
+                    )
                     ProjectImage(image, bgColor, Modifier.weight(1f).height(180.sdp))
                 } else {
                     ProjectImage(image, bgColor, Modifier.weight(1f).height(180.sdp))
-                    ProjectDetails(title, description, tags, points, Modifier.weight(1.2f), onViewCaseStudy, isMobile)
+                    ProjectDetails(
+                        title,
+                        description,
+                        tags,
+                        points,
+                        Modifier.weight(1.2f),
+                        onViewCaseStudy,
+                        isMobile
+                    )
                 }
             }
         }
@@ -104,13 +149,14 @@ fun ProjectCard(
 }
 
 @Composable
-fun ProjectImage(image: org.jetbrains.compose.resources.DrawableResource, bgColor: Color, modifier: Modifier) {
+fun ProjectImage(
+    image: org.jetbrains.compose.resources.DrawableResource,
+    bgColor: Color,
+    modifier: Modifier
+) {
     Box(
-        modifier = modifier
-            .fillMaxHeight()
-            .background(bgColor, RoundedCornerShape(8.sdp))
-            .padding(12.sdp),
-        contentAlignment = Alignment.Center
+        modifier = modifier.fillMaxHeight().background(bgColor, RoundedCornerShape(8.sdp))
+            .padding(12.sdp), contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painterResource(image),
@@ -142,16 +188,17 @@ fun ProjectDetails(
                 verticalArrangement = Arrangement.spacedBy(5.sdp),
                 maxLines = 1,
                 maxItemsInEachRow = if (isMobile) 5 else 8
-            ){
-            tags.forEach { tag ->
+            ) {
+                tags.forEach { tag ->
 
                     Text(
                         text = tag,
                         fontSize = if (isMobile) 8.ssp else 5.ssp,
                         color = PrimaryPurple,
-                        modifier = Modifier
-                            .background(PrimaryPurple.copy(0.1f), RoundedCornerShape(5.sdp))
-                            .padding(horizontal = 4.sdp, vertical = 2.sdp)
+                        modifier = Modifier.background(
+                                PrimaryPurple.copy(0.1f),
+                                RoundedCornerShape(5.sdp)
+                            ).padding(horizontal = 4.sdp, vertical = 2.sdp)
                     )
                 }
 
@@ -204,51 +251,4 @@ fun ProjectDetails(
             )
         }
     }
-}
-
-data class ProjectData (
-    val projectName : String,
-    val projectDescription :  String,
-    val skillTags : List<String>,
-    val impPoints : List<String>,
-    val image : DrawableResource,
-    val imageBackgroundColor : Color = Color.White,
-    val isReversed: Boolean = false,
-)
-
-
-fun getProjectsData (): Array<ProjectData> {
-    return arrayOf(
-        ProjectData(
-            projectName = "Musklr",
-            projectDescription = "A comprehensive fitness ecosystem enabling gym owners to manage memberships while providing members with workout tracking and class booking.",
-            skillTags = listOf(
-                "Kotlin","jetpack Compose ","Compose Multiplatform","Koin","MVVM"
-            ),
-            impPoints = listOf(
-                "Shared business logic using KMP for 40% faster development cycles.",
-                "Real-time data synchronization."
-            ),
-            image =  Res.drawable.gym_login,
-            imageBackgroundColor = Color(0xFFE5F1EF),
-            isReversed = false
-        ),
-        ProjectData(
-            projectName = "Loan Digit Partner / DSA",
-            projectDescription = "Developed a loan management application for agents (DSA) to manage customer leads, track loan applications, and streamline onboarding processes.",
-
-            skillTags = listOf("Android", "Jetpack Compose", "REST API","Retrofit","Hilt - Dagger","MVVM "),
-
-            impPoints = listOf(
-                "Implemented lead management system for handling customer data and loan applications.",
-                "Integrated REST APIs to fetch and update real-time loan status.",
-                "Built scalable UI using Jetpack Compose for smooth user experience.",
-                "Optimized data handling and navigation for better performance."
-            ),
-
-            image = Res.drawable.gym_login,
-            imageBackgroundColor = Color(0xFF1E3A3A),
-            isReversed = true,
-        ),
-    )
 }

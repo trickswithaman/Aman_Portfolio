@@ -16,7 +16,7 @@ import org.example.project.*
 import org.jetbrains.compose.resources.Font
 
 @Composable
-fun ExperienceSection() {
+fun ExperienceSection(experiences: List<ExperienceData>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,16 +43,14 @@ fun ExperienceSection() {
                 modifier = Modifier.weight(2f),
                 verticalArrangement = Arrangement.spacedBy(20.sdp)
             ) {
-                ExperienceItem(
-                    company = "3dverse Technologies",
-                    role = "Kotlin Multiplatform Engineer",
-                    period = "Jan 2023 - Present",
-                    points = listOf(
-                        "Engineered scalable KMP modules for networking and local data storage, reducing iOS development time by 30%.",
-                        "Led the transition from XML to Jetpack Compose, improving UI performance and developer velocity.",
-                        "Implemented modular Clean Architecture to separate concerns and improve unit test coverage to 85%."
+                experiences.forEach { experience ->
+                    ExperienceItem(
+                        company = experience.company,
+                        role = experience.role,
+                        period = experience.period,
+                        points = experience.points
                     )
-                )
+                }
             }
         }
     }

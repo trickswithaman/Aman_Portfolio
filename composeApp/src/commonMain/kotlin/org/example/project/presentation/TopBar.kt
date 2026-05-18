@@ -54,12 +54,12 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (Str
                             painter = painterResource(Res.drawable.ic_topbar),
                             contentDescription = null,
                             modifier = Modifier.size(6.sdp),
-                            colorFilter = ColorFilter.tint(Color.White),
+                            colorFilter = ColorFilter.tint(White),
                         )
                     }
                     Spacer(modifier = Modifier.width(6.sdp))
                     Text(
-                        text = "Aman Saxena",
+                        text = PortfolioConstants.NAME,
                         fontSize = if (isMobile) 10.ssp else 8.ssp,
                         fontFamily = FontFamily(Font(Res.font.Montserrat_Bold)),
                         color = TextDark

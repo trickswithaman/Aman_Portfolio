@@ -199,7 +199,7 @@ fun CodeSnippetWindow(modifier: Modifier = Modifier) {
             }
             Spacer(modifier = Modifier.height(12.sdp))
             CodeLine("val", " engineer", " = ", "Engineer(", color1 = Color(0xFFC678DD), color2 = Color(0xFFE06C75))
-            CodeLine("    name = ", "\"Aman Saxena\"", ",", "", color1 = Color(0xFFD19A66), color2 = Color(0xFF98C379))
+            CodeLine("    name = ", "\"${PortfolioConstants.NAME}\"", ",", "", color1 = Color(0xFFD19A66), color2 = Color(0xFF98C379))
             CodeLine("    role = ", "\"Native Android & KMP Developer\"", ",", "", color1 = Color(0xFFD19A66), color2 = Color(0xFF98C379))
             CodeLine("    focus = ", "listOf(", "\"Compose\", \"Clean-Arch\"", ")", color1 = Color(0xFFD19A66), color2 = Color(0xFF61AFEF))
             CodeLine(")", "", "", "")
