@@ -21,6 +21,7 @@ import org.example.project.TextDark
 import org.example.project.WindowInfo
 import org.example.project.components.calculateExperience
 import org.example.project.components.downloadResume
+import org.example.project.components.BackHandler
 import org.example.project.rememberWindowInfo
 import kotlin.collections.listOf
 
@@ -45,6 +46,8 @@ fun MyPortfolio() {
         }
     }
 
+    val projectsData = getProjectsData()
+
     val skillsList = listOf(
         "Kotlin",
         "Jetpack Compose",
@@ -65,6 +68,9 @@ fun MyPortfolio() {
     )
 
     MaterialTheme {
+        BackHandler(enabled = selectedProject != null) {
+            selectedProject = null
+        }
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
@@ -149,9 +155,15 @@ fun MyPortfolio() {
                                 )
                             }
                             item {
-                                ProjectSection(isMobile) { projectName ->
-                                    selectedProject = projectName
-                                }
+                                ProjectSection(
+                                    isMobile,
+                                    projectData = projectsData ,
+                                    onViewCaseStudy = {projectName ->
+                                        selectedProject = projectName
+
+                                    }
+
+                                    )
                             }
                             item { ExperienceSection() }
                             item { ContactSection() }
