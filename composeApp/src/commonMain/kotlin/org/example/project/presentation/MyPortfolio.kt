@@ -123,7 +123,10 @@ fun MyPortfolio() {
                             }
                             // Experience Section
                             item {
-                                ExperienceSection(experiences = PortfolioConstants.experiences)
+                                ExperienceSection(
+                                    isMobile = isMobile,
+                                    experiences = PortfolioConstants.experiences
+                                )
                             }
                             // Contact Section
                             item {

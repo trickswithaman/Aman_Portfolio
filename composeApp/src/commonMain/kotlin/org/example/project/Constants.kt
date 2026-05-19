@@ -13,6 +13,20 @@ import myportfolio.composeapp.generated.resources.gym_register_members
 import myportfolio.composeapp.generated.resources.gum_select_package
 import myportfolio.composeapp.generated.resources.gym_coach_list
 import myportfolio.composeapp.generated.resources.gym_member_list
+import myportfolio.composeapp.generated.resources.ic_ld_dashboard
+import myportfolio.composeapp.generated.resources.ic_ld_dsa_dashboard
+import myportfolio.composeapp.generated.resources.ic_ld_dsa_e_kyc
+import myportfolio.composeapp.generated.resources.ic_ld_dsa_lead_status
+import myportfolio.composeapp.generated.resources.ic_ld_dsa_login_screen
+import myportfolio.composeapp.generated.resources.ic_ld_dsa_payout_history
+import myportfolio.composeapp.generated.resources.ic_ld_dsa_profile_and_menu
+import myportfolio.composeapp.generated.resources.ic_ld_login
+import myportfolio.composeapp.generated.resources.ic_ld_onboarding
+import myportfolio.composeapp.generated.resources.ic_ld_profile
+import myportfolio.composeapp.generated.resources.ic_ld_transfer_funds
+import myportfolio.composeapp.generated.resources.ic_ld_welcome
+import myportfolio.composeapp.generated.resources.ic_loan_digit_dsa_onboarding
+import myportfolio.composeapp.generated.resources.ic_payment_success
 
 object PortfolioConstants {
     // Basic Info
@@ -73,7 +87,7 @@ object PortfolioConstants {
                 "Designed and delivered features across 4+ live Android and cross-platform apps, including fintech products with 100K+ active users.",
                 "Architected and implemented shared KMP modules targeting Android, iOS, and Web — reducing duplicate business logic by ~60%.",
                 "Reduced app crash rate by ~35% via systematic crash analysis with Firebase Crashlytics and lifecycle optimization.",
-                "Integrated 5+ REST APIs using Retrofit and Ktor, leveraging Kotlin Coroutines and Flow for non-blocking operations."
+                "Integrated 20+ REST APIs using Retrofit and Ktor, leveraging Kotlin Coroutines and Flow for non-blocking operations."
             )
         )
     )
@@ -101,7 +115,7 @@ object PortfolioConstants {
                 "Delivered Retrofit-based REST API integrations for lender assessment and credit scoring.",
                 "Built RBI-compliant UI screens with full APR disclosures and processing fee transparency."
             ),
-            image = Res.drawable.ic_coding,
+            image = Res.drawable.ic_ld_onboarding,
             imageBackgroundColor = Color(0xFFF0F4F8),
             isReversed = true
         ),
@@ -114,7 +128,7 @@ object PortfolioConstants {
                 "Delivered real-time commission payout and instant bank transfer features using secure backend APIs.",
                 "Built role-specific onboarding flows supporting multi-type agent registration."
             ),
-            image = Res.drawable.ic_coding,
+            image = Res.drawable.ic_loan_digit_dsa_onboarding,
             imageBackgroundColor = Color(0xFFE8F5E9)
         )
     )
@@ -179,9 +193,14 @@ object PortfolioConstants {
                     "Real-time Updates" to "Push notifications and status tracking for disbursement and approvals."
                 ),
                 mockups = listOf(
-                    "Onboarding Flow" to Res.drawable.ic_coding,
-                    "Loan Calculator" to Res.drawable.ic_coding,
-                    "Repayment Dashboard" to Res.drawable.ic_coding
+                    "Onboarding Flow" to Res.drawable.ic_ld_onboarding,
+                    "Login Screen" to Res.drawable.ic_ld_login,
+                    "Welcome Screen" to Res.drawable.ic_ld_welcome,
+                    "Dashboard Screen" to Res.drawable.ic_ld_dashboard,
+                    "Transfer Fund Screen" to Res.drawable.ic_ld_transfer_funds,
+                    "Payment Success Screen" to Res.drawable.ic_payment_success,
+                    "Profile Screen" to Res.drawable.ic_ld_profile,
+
                 ),
                 challenges = listOf(
                     "High User Load" to "Optimizing performance to handle 100K+ active users without latency issues.",
@@ -197,7 +216,7 @@ object PortfolioConstants {
                 title = "LoanDigit Partner\nAgent / DSA App",
                 description = "A dedicated platform for Direct Selling Agents (DSAs) and financial partners to manage leads, track commissions, and facilitate loan disbursements.",
                 tags = listOf("Android", "Jetpack Compose", "MVVM", "Retrofit", "Firebase"),
-                heroImage = Res.drawable.ic_coding,
+                heroImage = Res.drawable.ic_loan_digit_dsa_onboarding,
                 heroBgColor = Color(0xFFE8F5E9),
                 problem = "Financial agents lacked a centralized tool to manage their lead pipelines and track their earnings. Managing multiple customer applications manually led to inefficiencies and delayed disbursements.",
                 architectureItems = listOf(
@@ -213,9 +232,13 @@ object PortfolioConstants {
                     "Document Manager" to "Secure upload and management of customer identity and financial documents."
                 ),
                 mockups = listOf(
-                    "Lead Dashboard" to Res.drawable.ic_coding,
-                    "Earnings History" to Res.drawable.ic_coding,
-                    "Agent Registration" to Res.drawable.ic_coding
+                    "Onboarding Screen" to Res.drawable.ic_loan_digit_dsa_onboarding,
+                    "Login Screen" to Res.drawable.ic_ld_dsa_login_screen,
+                    "Dashboard Screen" to Res.drawable.ic_ld_dsa_dashboard,
+                    "Payout Screen" to Res.drawable.ic_ld_dsa_payout_history,
+                    "Lead Status Screen" to Res.drawable.ic_ld_dsa_lead_status,
+                    "Menu And Profile Screen" to Res.drawable.ic_ld_dsa_profile_and_menu,
+                    "E-KYC Screen" to Res.drawable.ic_ld_dsa_e_kyc,
                 ),
                 challenges = listOf(
                     "Complex State Flow" to "Managing the intricate states of loan applications across multiple parties.",
