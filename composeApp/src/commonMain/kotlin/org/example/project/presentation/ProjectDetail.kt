@@ -9,10 +9,16 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import kotlinx.coroutines.launch
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
@@ -47,7 +53,7 @@ fun ProjectDetail(isMobile: Boolean, data: CaseStudyData, onBack: () -> Unit) {
 fun ProjectHero(isMobile: Boolean, onBack: () -> Unit, data: CaseStudyData) {
     Column(modifier = Modifier.fillMaxWidth().padding(vertical = 20.sdp)) {
         TextButton(onClick = onBack, modifier = Modifier.padding(bottom = 10.sdp)) {
-            Text("← Back to Projects", fontSize = 7.ssp, color = PrimaryPurple)
+            Text("← Back", fontSize = 7.ssp, color = PrimaryPurple)
         }
 
         if (isMobile) {
@@ -120,7 +126,7 @@ fun HeroContent(isMobile: Boolean, data: CaseStudyData) {
             }
         }
 
-        Row(horizontalArrangement = Arrangement.spacedBy(10.sdp)) {
+/*        Row(horizontalArrangement = Arrangement.spacedBy(10.sdp)) {
             Button(
                 onClick = {},
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryPurple),
@@ -137,7 +143,7 @@ fun HeroContent(isMobile: Boolean, data: CaseStudyData) {
             ) {
                 Text("VIEW REPO", fontSize = if (isMobile) 9.ssp else 6.ssp, color = TextDark)
             }
-        }
+        }*/
     }
 }
 
@@ -320,6 +326,9 @@ fun FeatureCard(title: String, desc: String, isMobile: Boolean, modifier: Modifi
 
 @Composable
 fun DesignSection(isMobile: Boolean, data: CaseStudyData) {
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
     Column(modifier = Modifier.fillMaxWidth().padding(vertical = if (isMobile) 40.sdp else 20.sdp)) {
         Text(
             "Experience Design",
@@ -329,18 +338,67 @@ fun DesignSection(isMobile: Boolean, data: CaseStudyData) {
             modifier = Modifier.padding(bottom = 20.sdp)
         )
 
-        LazyRow(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(if (isMobile) 15.sdp else 10.sdp),
-            contentPadding = PaddingValues(horizontal = 2.sdp)
-        ) {
-            items(data.mockups) { mockup ->
-                DesignMockup(
-                    title = mockup.first,
-                    image = mockup.second,
-                    modifier = Modifier.width(if (isMobile) 120.sdp else 100.sdp),
-                    isMobile = isMobile
-                )
+        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            LazyRow(
+                state = listState,
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(if (isMobile) 15.sdp else 10.sdp),
+                contentPadding = PaddingValues(horizontal = 2.sdp)
+            ) {
+                items(data.mockups) { mockup ->
+                    DesignMockup(
+                        title = mockup.first,
+                        image = mockup.second,
+                        modifier = Modifier.width(if (isMobile) 120.sdp else 100.sdp),
+                        isMobile = isMobile
+                    )
+                }
+            }
+
+            if (listState.canScrollBackward) {
+                IconButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            listState.animateScrollToItem(maxOf(0, listState.firstVisibleItemIndex - 1))
+                        }
+                    },
+                    colors = IconButtonDefaults.iconButtonColors(containerColor = CardBg.copy(0.7f)),
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+//                        .padding(start = 5.sdp)
+                        .size( 15.sdp)
+  //                      .border(BorderStroke(0.5.sdp, lightGray), RoundedCornerShape(4.sdp))
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        contentDescription = "Back",
+                        tint = PrimaryPurple,
+                        modifier = Modifier.size(if (isMobile) 18.sdp else 14.sdp)
+                    )
+                }
+            }
+
+            if (listState.canScrollForward) {
+                IconButton(
+                    onClick = {
+                        coroutineScope.launch {
+                            listState.animateScrollToItem(listState.firstVisibleItemIndex + 1)
+                        }
+                    },
+                    colors = IconButtonDefaults.iconButtonColors(containerColor = CardBg.copy(0.7f)),
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+//                        .padding(end = 5.sdp)
+                        .size( 15.sdp)
+//                        .border(BorderStroke(0.5.sdp, lightGray), RoundedCornerShape(4.sdp))
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = "Next",
+                        tint = PrimaryPurple,
+                        modifier = Modifier.size(if (isMobile) 18.sdp else 14.sdp)
+                    )
+                }
             }
         }
     }
