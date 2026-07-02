@@ -1,5 +1,6 @@
 package org.example.project.presentation
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,10 +18,12 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -41,6 +44,7 @@ import org.example.project.PrimaryPurple
 import org.example.project.ProjectData
 import org.example.project.TextDark
 import org.example.project.TextLight
+import org.example.project.components.ButtonText
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
@@ -49,7 +53,8 @@ import org.jetbrains.compose.resources.painterResource
 fun ProjectSection(
     isMobile: Boolean,
     onViewCaseStudy: (String) -> Unit,
-    projectData: List<ProjectData>
+    projectData: List<ProjectData>,
+    onSeeMoreProjects: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(vertical = 12.sdp),
@@ -72,17 +77,44 @@ fun ProjectSection(
         )
 
 
+
         projectData.forEach { project ->
-            ProjectCard(
-                isMobile = isMobile,
-                title = project.projectName,
-                description = project.projectDescription,
-                tags = project.skillTags,
-                points = project.impPoints,
-                image = project.image,
-                isReversed = project.isReversed,
-                bgColor = project.imageBackgroundColor,
-                onViewCaseStudy = { onViewCaseStudy(project.projectName) })
+            if (project.isShowOnMain) {
+                ProjectCard(
+                    isMobile = isMobile,
+                    title = project.projectName,
+                    description = project.projectDescription,
+                    tags = project.skillTags,
+                    points = project.impPoints,
+                    image = project.image,
+                    isReversed = project.isReversed,
+                    bgColor = project.imageBackgroundColor,
+                    isShowOnMain = project.isShowOnMain,
+                    onViewCaseStudy = { onViewCaseStudy(project.projectName) })
+            }
+
+        }
+        if (projectData.size > 3) {
+
+            Row(
+                Modifier.fillMaxWidth().wrapContentHeight(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                OutlinedButton(
+                    onClick = { onSeeMoreProjects() },
+                    shape = RoundedCornerShape(8.sdp),
+
+                    border = BorderStroke(0.5.sdp, PrimaryPurple),
+                    contentPadding = PaddingValues(horizontal = 16.sdp, vertical = 8.sdp)
+                ) {
+                    ButtonText(
+                        text = "View More Projects",
+                        fontSize = if (isMobile) 9.ssp else 6.ssp,
+                        color = PrimaryPurple,
+                    )
+                }
+            }
         }
     }
 }
@@ -97,7 +129,9 @@ fun ProjectCard(
     image: org.jetbrains.compose.resources.DrawableResource,
     bgColor: Color,
     isReversed: Boolean = false,
-    onViewCaseStudy: () -> Unit
+    onViewCaseStudy: () -> Unit,
+
+    isShowOnMain: Boolean
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -115,7 +149,8 @@ fun ProjectCard(
                     points,
                     Modifier.fillMaxWidth(),
                     onViewCaseStudy,
-                    isMobile
+                    isMobile,
+                    isShowOnMain
                 )
             }
         } else {
@@ -128,7 +163,8 @@ fun ProjectCard(
                         points,
                         Modifier.weight(1.2f),
                         onViewCaseStudy,
-                        isMobile
+                        isMobile,
+                        isShowOnMain
                     )
                     ProjectImage(image, bgColor, Modifier.weight(1f).height(180.sdp))
                 } else {
@@ -140,7 +176,8 @@ fun ProjectCard(
                         points,
                         Modifier.weight(1.2f),
                         onViewCaseStudy,
-                        isMobile
+                        isMobile,
+                        isShowOnMain
                     )
                 }
             }
@@ -175,7 +212,8 @@ fun ProjectDetails(
     points: List<String>,
     modifier: Modifier,
     onViewCaseStudy: () -> Unit,
-    isMobile: Boolean
+    isMobile: Boolean,
+    isShowOnMain: Boolean
 ) {
     Column(
         modifier = modifier.padding(if (isMobile) 8.sdp else 12.sdp),

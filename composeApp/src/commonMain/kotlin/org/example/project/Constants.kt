@@ -104,7 +104,8 @@ object PortfolioConstants {
                 "Built core features: real-time attendance tracking and subscription lifecycle management."
             ),
             image = Res.drawable.gym_login,
-            imageBackgroundColor = Color(0xFFE5F1EF)
+            imageBackgroundColor = Color(0xFFE5F1EF),
+            isShowOnMain = true
         ),
         ProjectData(
             projectName = "LoanDigit — Personal Loan App",
@@ -117,7 +118,22 @@ object PortfolioConstants {
             ),
             image = Res.drawable.ic_ld_onboarding,
             imageBackgroundColor = Color(0xFFF0F4F8),
-            isReversed = true
+            isReversed = true,
+            isShowOnMain = true
+        ),
+        ProjectData(
+            projectName = "ddd",
+            projectDescription = "Live fintech app serving 100,000+ users, featuring e-KYC onboarding, EMI tracking, and RBI-compliant transparency.",
+            skillTags = listOf("Kotlin", "Jetpack Compose", "MVVM", "Retrofit", "Firebase", "Fintech"),
+            impPoints = listOf(
+                "Implemented e-KYC onboarding flow and EMI repayment tracking screens for 100K+ active users.",
+                "Delivered Retrofit-based REST API integrations for lender assessment and credit scoring.",
+                "Built RBI-compliant UI screens with full APR disclosures and processing fee transparency."
+            ),
+            image = Res.drawable.ic_ld_onboarding,
+            imageBackgroundColor = Color(0xFFF0F4F8),
+            isReversed = true,
+            isShowOnMain = false
         ),
         ProjectData(
             projectName = "LoanDigit Partner — Agent / DSA App",
@@ -129,7 +145,8 @@ object PortfolioConstants {
                 "Built role-specific onboarding flows supporting multi-type agent registration."
             ),
             image = Res.drawable.ic_loan_digit_dsa_onboarding,
-            imageBackgroundColor = Color(0xFFE8F5E9)
+            imageBackgroundColor = Color(0xFFE8F5E9),
+            isShowOnMain = true
         )
     )
 
@@ -202,6 +219,45 @@ object PortfolioConstants {
                     "Profile Screen" to Res.drawable.ic_ld_profile,
 
                 ),
+                challenges = listOf(
+                    "High User Load" to "Optimizing performance to handle 100K+ active users without latency issues.",
+                    "Regulatory Compliance" to "Implementing strict RBI digital lending guidelines for data privacy and transparency."
+                ),
+                stats = listOf(
+                    Triple("100K+", "Downloads", "Achieved a significant milestone on the Google Play Store."),
+                    Triple("35%", "Crash Reduction", "Optimized app stability via systematic Firebase Crashlytics analysis."),
+                    Triple("3.8 ★", "User Rating", "Maintained a strong user satisfaction score in the competitive fintech space.")
+                )
+            )
+            projectName.contains("ddd") && !projectName.contains("Partner") -> CaseStudyData(
+                title = "LoanDigit\nPersonal Loan App",
+                description = "A live fintech application serving over 100,000 users, providing a seamless digital lending experience with automated onboarding and real-time tracking.",
+                tags = listOf("Android", "Compose", "MVVM", "Retrofit", "Firebase", "Fintech"),
+                heroImage = Res.drawable.ic_coding,
+                heroBgColor = Color(0xFFF0F4F8),
+                problem = "The digital lending space requires high trust and transparency. Users often find loan applications complex and opaque. LoanDigit needed a solution that simplifies the e-KYC process and provides clear, RBI-compliant disclosures while handling high traffic volume.",
+                architectureItems = listOf(
+                    "MVVM Pattern" to "Separation of UI and business logic for better testability and maintainability.",
+                    "Retrofit API" to "Robust network layer with custom error handling for complex financial transactions.",
+                    "Firebase Auth" to "Secure and seamless phone-based authentication for user onboarding.",
+                    "Clean UI State" to "Reactive UI updates based on backend processing status for real-time feedback."
+                ),
+                features = listOf(
+                    "e-KYC Onboarding" to "Streamlined digital verification process for instant loan eligibility.",
+                    "EMI Tracking" to "Comprehensive dashboard for users to track repayments and schedules.",
+                    "APR Transparency" to "Clear breakdown of fees and interest rates as per regulatory guidelines.",
+                    "Real-time Updates" to "Push notifications and status tracking for disbursement and approvals."
+                ),
+                mockups = listOf(
+                    "Onboarding Flow" to Res.drawable.ic_ld_onboarding,
+                    "Login Screen" to Res.drawable.ic_ld_login,
+                    "Welcome Screen" to Res.drawable.ic_ld_welcome,
+                    "Dashboard Screen" to Res.drawable.ic_ld_dashboard,
+                    "Transfer Fund Screen" to Res.drawable.ic_ld_transfer_funds,
+                    "Payment Success Screen" to Res.drawable.ic_payment_success,
+                    "Profile Screen" to Res.drawable.ic_ld_profile,
+
+                    ),
                 challenges = listOf(
                     "High User Load" to "Optimizing performance to handle 100K+ active users without latency issues.",
                     "Regulatory Compliance" to "Implementing strict RBI digital lending guidelines for data privacy and transparency."

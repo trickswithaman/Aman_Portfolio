@@ -2,6 +2,7 @@ package org.example.project.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -22,8 +23,9 @@ import org.example.project.components.CustomText
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
+
 @Composable
-fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (String) -> Unit) {
+fun TopBar(isMobile: Boolean, selectedItem: PortfolioSection, onNavigate: (PortfolioSection) -> Unit) {
     Surface(
         modifier = Modifier.fillMaxWidth().height(if (isMobile) 50.sdp else 30.sdp),
         color = White,
@@ -32,7 +34,7 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (Str
         BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
             val screenWidth = maxWidth
             val horizontalPadding = if (isMobile) 15.sdp else screenWidth * 0.15f
-            
+
             Row(
                 modifier = Modifier
                     .fillMaxSize()
@@ -41,7 +43,9 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (Str
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(
-                    modifier = Modifier.wrapContentSize(),
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .clickable { onNavigate(PortfolioSection.Home) },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
@@ -74,14 +78,19 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (Str
                     ) {
 
                         Spacer(Modifier.weight(1f))
-                        val menuItems = listOf("About", "Skills", "Projects", "Experience")
+                        val menuItems = listOf(
+                            PortfolioSection.About,
+                            PortfolioSection.Skills,
+                            PortfolioSection.Projects,
+                            PortfolioSection.Experience
+                        )
                         menuItems.forEach { item ->
                             TextButton(
                                 onClick = { onNavigate(item)  }) {
                                 CustomText(
-                                    text = item,
+                                    text = item.title,
                                     fontSize = 6.ssp,
-                                    color = if (isSelected.value == item) PrimaryPurple else TextLight,
+                                    color = if (selectedItem == item) PrimaryPurple else TextLight,
                                 )
                             }
                         }
@@ -91,7 +100,7 @@ fun TopBar(isMobile: Boolean, isSelected: MutableState<String>, onNavigate: (Str
                 }
                 CustomButton(
                     text = "Contact Me",
-                    onClick = { onNavigate("Contact")}
+                    onClick = { onNavigate(PortfolioSection.Contact)}
                 )
             }
         }

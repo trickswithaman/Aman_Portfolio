@@ -19,7 +19,9 @@ data class ProjectData(
     val image: DrawableResource,
     val imageBackgroundColor: Color = Color.White,
     val isReversed: Boolean = false,
+    val isShowOnMain : Boolean
 )
+
 
 data class CaseStudyData(
     val title: String,
