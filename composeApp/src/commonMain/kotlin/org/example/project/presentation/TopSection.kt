@@ -1,253 +1,277 @@
 package org.example.project.presentation
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
-import myportfolio.composeapp.generated.resources.Montserrat_Black
-import myportfolio.composeapp.generated.resources.Montserrat_Bold
-import myportfolio.composeapp.generated.resources.Montserrat_Medium
-import myportfolio.composeapp.generated.resources.Montserrat_Regular
-import myportfolio.composeapp.generated.resources.Montserrat_SemiBold
-import myportfolio.composeapp.generated.resources.Res
-import myportfolio.composeapp.generated.resources.ic_coding
-import myportfolio.composeapp.generated.resources.ic_download
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
+import myportfolio.composeapp.generated.resources.*
 import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
-import org.example.project.isSelectedColor
-import org.example.project.lightGray
-import org.example.project.lightGray2
+import org.example.project.*
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 
-@Preview(showBackground = true)
 @Composable
-fun TopSection (isMobile : Boolean){
-    Column (
-        modifier = Modifier.wrapContentSize(),
-        verticalArrangement = Arrangement.Center,
+fun TopSection(
+    downloadResume: () -> Unit,
+    isMobile: Boolean,
+    totalProductionApp : Int = 4,
+    specialistCard: String = "Native & KMP",
+    leftBoxHeaderText : AnnotatedString,
+    leftBoxSummary : String = "",
+    totalExperience : String,
+
+    onViewProjectsButton: (String) -> Unit) {
+
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 20.sdp),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
-        FlowRow(
-            modifier = Modifier.fillMaxWidth().background(Color.White.copy(alpha = 0.3f)),
-            horizontalArrangement = Arrangement.Center,
-            verticalArrangement = Arrangement.Center
-        ){
-            Box(
-                modifier = Modifier.weight(1f)
-            ){
-                LeftBox(isMobile)
+    ) {
 
+        if (isMobile) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                LeftBox(downloadResume,isMobile = true, text = leftBoxHeaderText, summary = leftBoxSummary,onNavigate = onViewProjectsButton)
+                Spacer(modifier = Modifier.height(20.sdp))
+                CodeSnippetWindow(modifier = Modifier.fillMaxWidth())
             }
-            if (!isMobile){
-                Spacer(Modifier.weight(0.2f))
-                Box(
-                    modifier = Modifier.weight(1f)
-                ){
-                    RightBox()
-
+        } else {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(modifier = Modifier.weight(1f)) {
+                    LeftBox(downloadResume, text = leftBoxHeaderText, onNavigate = onViewProjectsButton, isMobile = false, summary = leftBoxSummary)
                 }
-
-            } else {}
-
+                Spacer(modifier = Modifier.width(20.sdp))
+                Box(modifier = Modifier.weight(1f)) {
+                    CodeSnippetWindow(modifier = Modifier.fillMaxWidth())
+                }
+            }
         }
+
+        Spacer(modifier = Modifier.height(30.sdp))
 
         FlowRow(
-            modifier = Modifier.wrapContentSize(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(10.sdp),
-            verticalArrangement = Arrangement.spacedBy(10.sdp),
-            maxLines = 2,
-
-
-        ){
+            verticalArrangement = Arrangement.spacedBy(10.sdp)
+        ) {
+            val cardModifier = if (isMobile) Modifier.fillMaxWidth(0.47f) else Modifier.weight(1f)
             MyCard(
+                modifier = cardModifier,
                 isMobile = isMobile,
                 headingText = "Experience",
-                description = "1.5+ years"
+                description = totalExperience,
+                icon = Res.drawable.ic_experience
             )
             MyCard(
+                modifier = cardModifier,
                 isMobile = isMobile,
-                headingText = "Projects",
-                description = "3+ Done "
+                headingText = "Features Delivered",
+                description = "$totalProductionApp+ Production",
+                icon = Res.drawable.ic_rocket
             )
             MyCard(
+                modifier = cardModifier,
                 isMobile = isMobile,
-                headingText = "Tech Stack",
-                description = "1.5+ years"
+                headingText = "Specialist",
+                description = specialistCard,
+                icon = Res.drawable.ic_certificate
             )
             MyCard(
+                modifier = cardModifier,
                 isMobile = isMobile,
-                headingText = "Experience",
-                description = "1.5+ years"
+                headingText = "Portfolio",
+                description = "Cross-Platform",
+                icon = Res.drawable.ic_portfolip
             )
-        }
-
-
-    }
-
-
-}
-@Preview
-@Composable
-fun MyCard(
-    isMobile : Boolean = false,
-    modifier: Modifier = Modifier,
-    headingText : String,
-    description : String
-){
-    Card (
-        modifier = modifier
-            .wrapContentSize()
-            .border(
-                width = 0.5.sdp,
-                color = lightGray,
-                shape = RoundedCornerShape(5.sdp)
-            ),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 1.sdp
-        )
-
-
-    ){
-        Column (
-            modifier = Modifier.wrapContentSize().padding(vertical =if (!isMobile) 15.sdp else 18.sdp, horizontal =if (!isMobile) 18.sdp else
-            22.sdp)
-        ){
-            Text(
-                text = headingText,
-                fontSize = if (!isMobile) 6.ssp else 8.ssp,
-                color = Color.Gray.copy(0.8f),
-                fontFamily = FontFamily(Font(Res.font.Montserrat_Medium))
-            )
-
-            Text(
-                text = description,
-                fontSize = if (!isMobile) 10.ssp else 12.ssp,
-                color = isSelectedColor,
-                fontFamily = FontFamily(Font(Res.font.Montserrat_SemiBold))
-            )
-
         }
     }
 }
 
 @Composable
-fun LeftBox(isMobile: Boolean){
-    Column (
-        modifier = Modifier.wrapContentSize().padding(vertical = 25.sdp),
+fun LeftBox(downloadResume : () -> Unit,isMobile: Boolean, text : AnnotatedString, summary : String , onNavigate: (String) -> Unit) {
+    Column(
+        modifier = Modifier.wrapContentSize(),
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.spacedBy(3.sdp)
-    )
-    {
-        Text(
-            text = "AVAILABLE FOR HIRE",
-            fontSize = if (!isMobile) 5.ssp else
-                8.ssp,
-            fontFamily = FontFamily(Font(Res.font.Montserrat_SemiBold)),
-            color = isSelectedColor,
+        verticalArrangement = Arrangement.spacedBy(8.sdp)
+    ) {
+        Row(
             modifier = Modifier
-                .background(
-                    color = isSelectedColor.copy(0.1f),
-                    shape = RoundedCornerShape(8.sdp)
-                ).padding(vertical = 3.sdp, horizontal = 4.sdp)
-
-        )
+                .background(PrimaryPurple.copy(alpha = 0.1f), RoundedCornerShape(20.sdp))
+                .padding(horizontal = 5.sdp, vertical = 2.sdp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(4.sdp)
+                    .background(PrimaryPurple, RoundedCornerShape(50))
+            )
+            Spacer(modifier = Modifier.width(4.sdp))
+            Text(
+                text = "AVAILABLE FOR NEW PROJECTS",
+                fontSize = if (isMobile) 7.ssp else 5.ssp,
+                fontFamily = FontFamily(Font(Res.font.Montserrat_SemiBold)),
+                color = PrimaryPurple
+            )
+        }
 
         Text(
-            text = "Android & KMP Developer.",
-            fontSize =  if (!isMobile) 16.ssp else 25.ssp,
-            lineHeight = if (!isMobile)15.ssp else 20.ssp,
+            text = text,
+            fontSize = if (isMobile) 23.ssp else 25.ssp,
+            lineHeight = if (isMobile) 28.ssp else 30.ssp,
             fontFamily = FontFamily(Font(Res.font.Montserrat_Black)),
-            color = Color.Black,
+            color = TextDark
         )
 
         Text(
-            text = "Crafting high - performance, cross platform mobile experience with kotlin Multiplatform (KMP) and jetpack compose",
-            fontSize =if (!isMobile) 6.ssp else 10.ssp,
-            lineHeight =if (!isMobile) 10.ssp else 15.ssp,
-
+            text = summary,
+            fontSize = if (isMobile) 10.ssp else 5.ssp,
+            lineHeight = if (isMobile) 14.ssp else 8.ssp,
             fontFamily = FontFamily(Font(Res.font.Montserrat_Medium)),
-            color = lightGray2.copy(alpha = 0.7f),
+            color = TextLight,
+            modifier = Modifier.padding(vertical = 8.sdp)
         )
 
-        Row (modifier = Modifier.wrapContentSize()){
+        Row(
+            modifier = Modifier.wrapContentSize(),
+            horizontalArrangement = Arrangement.spacedBy(8.sdp)
+        ) {
+
             Button(
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(containerColor = isSelectedColor),
-                shape = RoundedCornerShape(2.5.sdp),
-                modifier = Modifier.wrapContentSize().padding( end = 3.sdp, top = 3.sdp, bottom = 3.sdp),
-            ){
+                onClick = {onNavigate("Projects")},
+                colors = ButtonDefaults.buttonColors(containerColor = PrimaryPurple),
+                elevation = ButtonDefaults.buttonElevation(defaultElevation = 5.sdp),
+                shape = RoundedCornerShape(8.sdp),
+                contentPadding = PaddingValues(horizontal = 16.sdp, vertical = 8.sdp)
+            ) {
                 Text(
                     text = "View Projects",
-                    fontSize = if (isMobile)9.ssp else 6.ssp,
-                    fontFamily = FontFamily(  Font(Res.font.Montserrat_Bold))
+                    fontSize = if (isMobile) 9.ssp else 6.ssp,
+                    fontFamily = FontFamily(Font(Res.font.Montserrat_Bold))
                 )
-                Image(painter = painterResource(Res.drawable.ic_download),
-                    contentDescription = null, modifier = Modifier.size(if (isMobile) 8.sdp else 10.sdp).padding(start = 3.sdp), colorFilter = ColorFilter.tint(color = Color.White))
-
             }
-            Button(
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                border = ButtonDefaults.outlinedButtonBorder(
-                   enabled = true
-                ),
-                shape = RoundedCornerShape(2.5.sdp),
-                modifier = Modifier.wrapContentSize().padding( 3.sdp),
-            ){
+            OutlinedButton(
+                onClick = {downloadResume()},
+                shape = RoundedCornerShape(8.sdp),
+
+                border = BorderStroke(1.sdp, lightGray),
+                contentPadding = PaddingValues(horizontal = 16.sdp, vertical = 8.sdp)
+            ) {
                 Text(
-                    text = "Download Resume ",
-                    fontSize = if (isMobile)9.ssp else 6.ssp,
-                    color = isSelectedColor,
-                    fontFamily = FontFamily(  Font(Res.font.Montserrat_Bold))
-                )
-                Image(
-                    painter = painterResource(Res.drawable.ic_download),
-                    contentDescription = null,
-                    modifier = Modifier.size(if (isMobile) 8.sdp else 10.sdp).padding(start = 3.sdp)
+                    text = "Download Resume",
+                    fontSize = if (isMobile) 9.ssp else 6.ssp,
+                    color = TextDark,
+                    fontFamily = FontFamily(Font(Res.font.Montserrat_Bold))
                 )
             }
         }
     }
 }
 
-
-@Preview
 @Composable
-fun RightBox(modifier: Modifier = Modifier){
-    Image(
-        painter = painterResource(Res.drawable.ic_coding),
-        contentDescription = null,
-        modifier = modifier.fillMaxSize()
+fun CodeSnippetWindow(modifier: Modifier = Modifier) {
+    Card(
+        modifier = modifier.height(180.sdp),
+        colors = CardDefaults.cardColors(containerColor = CardBg),
+        elevation = CardDefaults.cardElevation(defaultElevation = 10.sdp),
+        shape = RoundedCornerShape(12.sdp)
+    ) {
+        Column(modifier = Modifier.padding(12.sdp)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(4.sdp)) {
+                Dot(Color(0xFFFF5F56))
+                Dot(Color(0xFFFFBD2E))
+                Dot(Color(0xFF27C93F))
+            }
+            Spacer(modifier = Modifier.height(12.sdp))
+            CodeLine("val", " engineer", " = ", "Engineer(", color1 = Color(0xFFC678DD), color2 = Color(0xFFE06C75))
+            CodeLine("    name = ", "\"${PortfolioConstants.NAME}\"", ",", "", color1 = Color(0xFFD19A66), color2 = Color(0xFF98C379))
+            CodeLine("    role = ", "\"Native Android & KMP Developer\"", ",", "", color1 = Color(0xFFD19A66), color2 = Color(0xFF98C379))
+            CodeLine("    focus = ", "listOf(", "\"Compose\", \"Clean-Arch\"", ")", color1 = Color(0xFFD19A66), color2 = Color(0xFF61AFEF))
+            CodeLine(")", "", "", "")
+            Spacer(modifier = Modifier.height(8.sdp))
+            CodeLine("fun", " buildPlatform", "() {", "", color1 = Color(0xFFC678DD), color2 = Color(0xFF61AFEF))
+            CodeLine("    expect", " val ", "uiFramework: UI", "", color1 = Color(0xFFC678DD), color2 = Color(0xFFD19A66))
+            CodeLine("    actual", " val ", "uiFramework = JetpackCompose", "", color1 = Color(0xFFC678DD), color2 = Color(0xFFD19A66))
+            CodeLine("}", "", "", "")
+        }
+    }
+}
+
+@Composable
+fun Dot(color: Color) {
+    Box(
+        modifier = Modifier
+            .size(6.sdp)
+            .background(color, RoundedCornerShape(50))
     )
 }
 
+@Composable
+fun CodeLine(part1: String, part2: String, part3: String, part4: String, color1: Color = TextDark, color2: Color = TextDark) {
+    Text(
+        text = buildAnnotatedString {
+            withStyle(style = SpanStyle(color = color1)) { append(part1) }
+            withStyle(style = SpanStyle(color = color2)) { append(part2) }
+            append(part3)
+            withStyle(style = SpanStyle(color = Color(0xFF98C379))) { append(part4) }
+        },
+        fontSize = 6.ssp,
+        fontFamily = FontFamily.Monospace
+    )
+}
+
+@Composable
+fun MyCard(
+    modifier: Modifier = Modifier,
+    isMobile: Boolean,
+    headingText: String,
+    description: String,
+    icon: org.jetbrains.compose.resources.DrawableResource
+) {
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(containerColor = White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.sdp),
+        shape = RoundedCornerShape(8.sdp),
+    ) {
+        Column(
+            modifier = Modifier.padding(12.sdp),
+            verticalArrangement = Arrangement.spacedBy(4.sdp)
+        ) {
+            Image(
+                painter = painterResource(icon),
+                contentDescription = null,
+                modifier = Modifier.size(16.sdp),
+                colorFilter = ColorFilter.tint(PrimaryPurple)
+            )
+            Text(
+                text = headingText,
+                fontSize = if (isMobile) 7.ssp else 5.ssp,
+                color = TextLight,
+                fontFamily = FontFamily(Font(Res.font.Montserrat_Medium))
+            )
+            Text(
+                text = description,
+                fontSize = if (isMobile) 10.ssp else 8.ssp,
+                color = TextDark,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(Res.font.Montserrat_Bold))
+            )
+        }
+    }
+}

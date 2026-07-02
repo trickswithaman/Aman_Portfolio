@@ -1,84 +1,176 @@
 package org.example.project.presentation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.launch
 import network.chaintech.sdpcomposemultiplatform.sdp
-import org.example.project.WindowInfo
-import org.example.project.lightGray
-import org.example.project.rememberWindowInfo
+import org.example.project.*
+import org.example.project.components.calculateExperience
+import org.example.project.components.downloadResume
+import org.example.project.components.BackHandler
+
+@Preview(showBackground = true)
 
 @Composable
-fun MyPortfolio (){
+fun MyPortfolio(
+    viewModel: PortfolioViewModel = viewModel { PortfolioViewModel() }
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val currentDestination = uiState.navigationStack.last()
+
+    // Window Info & State
     val windowInfo = rememberWindowInfo()
-    val isMobile =  windowInfo.screenWidthInfo == WindowInfo.WindowType.Compact
-    val isSelected = remember { mutableStateOf("Home") }
+    val isMobile = windowInfo.screenWidthInfo == WindowInfo.WindowType.Compact
+
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+
+    val scrollToSection: (PortfolioSection) -> Unit = { section ->
+        viewModel.onSectionSelected(section)
+        scope.launch {
+            listState.animateScrollToItem(section.index)
+        }
+    }
+
+    // Precise Stack Synchronization
+    // We compose a BackHandler for EVERY unique step in the navigation stack.
+    // This creates the corresponding entries in browser history/phone back stack.
+    uiState.navigationStack.forEachIndexed { index, _ ->
+        if (index > 0) { // Skip the very first Main screen
+            key(index) {
+                BackHandler {
+                    viewModel.onBackPress()
+                }
+            }
+        }
+    }
 
     MaterialTheme {
-        Scaffold (
-            modifier = Modifier.fillMaxSize(), topBar = {TopBar(isMobile,isSelected)}
-        ){ paddingValues ->
-
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
+                // TopBar is only visible on the main screen to keep detail views focused
+                if (currentDestination == PortfolioDestination.Main) {
+                    TopBar(
+                        isMobile = isMobile,
+                        selectedItem = uiState.selectedSection,
+                        onNavigate = { section -> scrollToSection(section) }
+                    )
+                }
+            },
+            containerColor = BgColor
+        ) { paddingValues ->
             BoxWithConstraints(
                 modifier = Modifier
-                    .fillMaxSize().background(Color.White.copy(alpha = 0.3f))
-
+                    .fillMaxSize()
+                    .padding(paddingValues)
             ) {
+                val horizontalPadding = if (isMobile) 15.sdp else maxWidth * 0.15f
 
-                val screenWidth = maxWidth
-                val paddingPercent = 0.20f // 20%
-                val horizontalPadding = screenWidth * paddingPercent
-                Box(
-                    modifier = Modifier.padding(horizontal = if (!isMobile)horizontalPadding else 10.sdp).fillMaxSize()
-                ) {
-                    LazyColumn (
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(paddingValues)
-                        ,
-                        verticalArrangement = Arrangement.spacedBy(5.sdp)
-                    ) {
-
-                        item {
-                            TopSection(isMobile)
-                            AboutMe()
-                            TechStackSection()
-                            ProjectSection()
-                            ContactSection()
+                AnimatedContent(
+                    targetState = currentDestination,
+                    transitionSpec = {
+                        fadeIn().togetherWith(fadeOut())
+                    },
+                    label = "PortfolioNavigation"
+                ) { destination ->
+                    when (destination) {
+                        is PortfolioDestination.ProjectDetail -> {
+                            Box(modifier = Modifier.padding(horizontal = horizontalPadding)) {
+                                ProjectDetail(
+                                    isMobile = isMobile,
+                                    data = PortfolioConstants.getCaseStudy(destination.projectName)
+                                ) {
+                                    viewModel.onBackPress()
+                                }
+                            }
                         }
-
-                    }}}
-
-
-
-
-
-
+                        PortfolioDestination.AllProjects -> {
+                            AllProjectsScreen(
+                                isMobile = isMobile,
+                                onBack = {
+                                    viewModel.onBackPress()
+                                },
+                                onViewCaseStudy = { projectName ->
+                                    viewModel.onProjectSelected(projectName)
+                                }
+                            )
+                        }
+                        PortfolioDestination.Main -> {
+                            LazyColumn(
+                                state = listState,
+                                modifier = Modifier.fillMaxSize(),
+                                contentPadding = PaddingValues(horizontal = horizontalPadding)
+                            ) {
+                                // Hero Section
+                                item {
+                                    TopSection(
+                                        downloadResume = { downloadResume() },
+                                        isMobile = isMobile,
+                                        onViewProjectsButton = { scrollToSection(PortfolioSection.Projects) },
+                                        totalExperience = uiState.totalExperience,
+                                        totalProductionApp = PortfolioConstants.heroData.totalProductionApps,
+                                        leftBoxSummary = PortfolioConstants.heroData.summary,
+                                        leftBoxHeaderText = PortfolioConstants.heroData.headerText,
+                                        specialistCard = PortfolioConstants.heroData.specialistCard
+                                    )
+                                }
+                                // About Me Section
+                                item {
+                                    AboutMe(
+                                        isMobile = isMobile,
+                                        leftText = PortfolioConstants.aboutMeData.leftText,
+                                        rightText = PortfolioConstants.aboutMeData.rightText
+                                    )
+                                }
+                                // Tech Stack Section
+                                item {
+                                    TechStackSection(
+                                        isMobile = isMobile,
+                                        skillList = PortfolioConstants.skillsList
+                                    )
+                                }
+                                // Projects Section
+                                item {
+                                    ProjectSection(
+                                        isMobile = isMobile,
+                                        projectData = PortfolioConstants.projects,
+                                        onViewCaseStudy = { projectName ->
+                                            viewModel.onProjectSelected(projectName)
+                                        },
+                                        onSeeMoreProjects = {
+                                            viewModel.setShowAllProjects(true)
+                                        }
+                                    )
+                                }
+                                // Experience Section
+                                item {
+                                    ExperienceSection(
+                                        isMobile = isMobile,
+                                        experiences = PortfolioConstants.experiences
+                                    )
+                                }
+                                // Contact Section
+                                item {
+                                    ContactSection(isMobile = isMobile)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-
-
     }
 }
