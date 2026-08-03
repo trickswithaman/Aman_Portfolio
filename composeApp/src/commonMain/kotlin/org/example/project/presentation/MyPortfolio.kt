@@ -17,7 +17,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import network.chaintech.sdpcomposemultiplatform.sdp
 import org.example.project.*
-import org.example.project.components.calculateExperience
 import org.example.project.components.downloadResume
 import org.example.project.components.BackHandler
 
@@ -120,7 +119,7 @@ fun MyPortfolio(
                                         downloadResume = { downloadResume() },
                                         isMobile = isMobile,
                                         onViewProjectsButton = { scrollToSection(PortfolioSection.Projects) },
-                                        totalExperience = uiState.totalExperience,
+                                        totalExperience = /*uiState.totalExperience*/"1.5+ years",
                                         totalProductionApp = PortfolioConstants.heroData.totalProductionApps,
                                         leftBoxSummary = PortfolioConstants.heroData.summary,
                                         leftBoxHeaderText = PortfolioConstants.heroData.headerText,
