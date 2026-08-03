@@ -27,6 +27,20 @@ import myportfolio.composeapp.generated.resources.ic_ld_transfer_funds
 import myportfolio.composeapp.generated.resources.ic_ld_welcome
 import myportfolio.composeapp.generated.resources.ic_loan_digit_dsa_onboarding
 import myportfolio.composeapp.generated.resources.ic_payment_success
+import myportfolio.composeapp.generated.resources.Notiq_Splash
+import myportfolio.composeapp.generated.resources.All_Notes
+import myportfolio.composeapp.generated.resources.Pinned_Note
+import myportfolio.composeapp.generated.resources.Setting_screen
+import myportfolio.composeapp.generated.resources.Change_light_theme
+import myportfolio.composeapp.generated.resources.Create_And_edit_Notes
+import myportfolio.composeapp.generated.resources.PF_All_Transaction
+import myportfolio.composeapp.generated.resources.PF_Create_Goal
+import myportfolio.composeapp.generated.resources.PF_Goal_Detail
+import myportfolio.composeapp.generated.resources.PF_Splash
+import myportfolio.composeapp.generated.resources.PF_add_transactionScreen
+import myportfolio.composeapp.generated.resources.PF_dashboard
+import myportfolio.composeapp.generated.resources.PF_insights
+import myportfolio.composeapp.generated.resources.PF_transaction_Details
 
 object PortfolioConstants {
     // Basic Info
@@ -108,6 +122,20 @@ object PortfolioConstants {
             isShowOnMain = true
         ),
         ProjectData(
+            projectName = "Proton Finance — Expense Tracker",
+            projectDescription = "A native Android personal finance management tool built with modern practices to track expenses, set goals, and visualize spending habits.",
+            skillTags = listOf("Kotlin", "Jetpack Compose", "MVVM", "Room", "Koin", "Data Visualization"),
+            impPoints = listOf(
+                "Built a high-performance native Android finance tracker using Jetpack Compose for a modern, reactive UI.",
+                "Implemented interactive data visualizations and charts for spending analysis using custom Compose canvas.",
+                "Integrated secure local storage with Room for managing sensitive financial transactions and goals."
+            ),
+            image = Res.drawable.PF_dashboard,
+            imageBackgroundColor = Color(0xFFE3F2FD),
+            isReversed = true,
+            isShowOnMain = true
+        ),
+        ProjectData(
             projectName = "LoanDigit — Personal Loan App",
             projectDescription = "Live fintech app serving 100,000+ users, featuring e-KYC onboarding, EMI tracking, and RBI-compliant transparency.",
             skillTags = listOf("Kotlin", "Jetpack Compose", "MVVM", "Retrofit", "Firebase", "Fintech"),
@@ -118,22 +146,21 @@ object PortfolioConstants {
             ),
             image = Res.drawable.ic_ld_onboarding,
             imageBackgroundColor = Color(0xFFF0F4F8),
-            isReversed = true,
-            isShowOnMain = true
+            isShowOnMain = false
         ),
         ProjectData(
-            projectName = "ddd",
-            projectDescription = "Live fintech app serving 100,000+ users, featuring e-KYC onboarding, EMI tracking, and RBI-compliant transparency.",
-            skillTags = listOf("Kotlin", "Jetpack Compose", "MVVM", "Retrofit", "Firebase", "Fintech"),
+            projectName = "Notiq — Multiplatform Note App",
+            projectDescription = "A modern note-taking application built with Compose Multiplatform, featuring persistent storage, pinning, and theme customization across Android and iOS.",
+            skillTags = listOf("Kotlin", "Compose Multiplatform", "KMP", "SQLDelight", "Koin", "MVVM"),
             impPoints = listOf(
-                "Implemented e-KYC onboarding flow and EMI repayment tracking screens for 100K+ active users.",
-                "Delivered Retrofit-based REST API integrations for lender assessment and credit scoring.",
-                "Built RBI-compliant UI screens with full APR disclosures and processing fee transparency."
+                "Engineered a cross-platform note-taking solution for Android and iOS with 100% shared UI and business logic.",
+                "Implemented local persistence using SQLDelight for efficient, type-safe database operations.",
+                "Designed a responsive UI with features like note pinning, search functionality, and dynamic theme switching."
             ),
-            image = Res.drawable.ic_ld_onboarding,
-            imageBackgroundColor = Color(0xFFF0F4F8),
+            image = Res.drawable.Notiq_Splash,
+            imageBackgroundColor = Color(0xFFF3E5F5),
             isReversed = true,
-            isShowOnMain = false
+            isShowOnMain = true
         ),
         ProjectData(
             projectName = "LoanDigit Partner — Agent / DSA App",
@@ -146,7 +173,7 @@ object PortfolioConstants {
             ),
             image = Res.drawable.ic_loan_digit_dsa_onboarding,
             imageBackgroundColor = Color(0xFFE8F5E9),
-            isShowOnMain = true
+            isShowOnMain = false
         )
     )
 
@@ -190,6 +217,45 @@ object PortfolioConstants {
                     Triple("MVI", "Maintainability", "Simplified debugging through a unidirectional data flow and clear state.")
                 )
             )
+            projectName.contains("Proton") -> CaseStudyData(
+                title = "Proton Finance\nExpense & Goal Tracker",
+                description = "A comprehensive native Android personal finance management app built with Jetpack Compose, helping users track expenses, set financial goals, and gain insights into their spending habits.",
+                tags = listOf("Android", "Jetpack Compose", "Room", "Koin", "MVVM", "Data Visualization"),
+                heroImage = Res.drawable.PF_dashboard,
+                heroBgColor = Color(0xFFE3F2FD),
+                problem = "Managing personal finances can be overwhelming with multiple accounts and spending categories. Users often struggle to stay on top of their budgets and save for long-term goals. Proton Finance was created to provide a simple, intuitive, and unified platform to track every penny and plan for a secure financial future.",
+                architectureItems = listOf(
+                    "Jetpack Compose" to "Modern declarative UI for building a fast and fluid financial management experience.",
+                    "Room Database" to "Local database for secure and fast access to financial records even without connectivity.",
+                    "MVVM Architecture" to "Robust separation of concerns, ensuring business logic is independent of the UI.",
+                    "Koin DI" to "Lightweight dependency injection for managing services and repositories efficiently."
+                ),
+                features = listOf(
+                    "Expense Tracking" to "Easily log transactions with categories, dates, and descriptions.",
+                    "Goal Management" to "Set financial milestones and track progress with visual indicators.",
+                    "Spending Insights" to "Detailed charts and summaries to understand where your money goes.",
+                    "Secure Offline" to "Complete privacy with all financial data staying on your device."
+                ),
+                mockups = listOf(
+                    "Splash Screen" to Res.drawable.PF_Splash,
+                    "Dashboard" to Res.drawable.PF_dashboard,
+                    "Insights" to Res.drawable.PF_insights,
+                    "All Transactions" to Res.drawable.PF_All_Transaction,
+                    "Transaction Details" to Res.drawable.PF_transaction_Details,
+                    "Add Transaction" to Res.drawable.PF_add_transactionScreen,
+                    "Create Goal" to Res.drawable.PF_Create_Goal,
+                    "Goal Detail" to Res.drawable.PF_Goal_Detail
+                ),
+                challenges = listOf(
+                    "Data Visualization" to "Creating performant and responsive charts that handle large datasets smoothly on Android.",
+                    "Local Security" to "Ensuring financial data is stored securely on the device with proper encryption."
+                ),
+                stats = listOf(
+                    Triple("Fast", "Native Performance", "Highly responsive UI with smooth animations and transitions."),
+                    Triple("Real-time", "Insights", "Instant feedback on spending habits and budget status."),
+                    Triple("Secure", "Offline", "Complete privacy with all financial data staying on your device.")
+                )
+            )
             projectName.contains("LoanDigit") && !projectName.contains("Partner") -> CaseStudyData(
                 title = "LoanDigit\nPersonal Loan App",
                 description = "A live fintech application serving over 100,000 users, providing a seamless digital lending experience with automated onboarding and real-time tracking.",
@@ -229,43 +295,41 @@ object PortfolioConstants {
                     Triple("3.8 ★", "User Rating", "Maintained a strong user satisfaction score in the competitive fintech space.")
                 )
             )
-            projectName.contains("ddd") && !projectName.contains("Partner") -> CaseStudyData(
-                title = "LoanDigit\nPersonal Loan App",
-                description = "A live fintech application serving over 100,000 users, providing a seamless digital lending experience with automated onboarding and real-time tracking.",
-                tags = listOf("Android", "Compose", "MVVM", "Retrofit", "Firebase", "Fintech"),
-                heroImage = Res.drawable.ic_coding,
-                heroBgColor = Color(0xFFF0F4F8),
-                problem = "The digital lending space requires high trust and transparency. Users often find loan applications complex and opaque. LoanDigit needed a solution that simplifies the e-KYC process and provides clear, RBI-compliant disclosures while handling high traffic volume.",
+            projectName.contains("Notiq") -> CaseStudyData(
+                title = "Notiq\nMultiplatform Note App",
+                description = "A modern, cross-platform note-taking application designed for simplicity and efficiency, built entirely with Kotlin Multiplatform and Compose Multiplatform.",
+                tags = listOf("KMP", "Compose Multiplatform", "SQLDelight", "Koin", "MVVM"),
+                heroImage = Res.drawable.All_Notes,
+                heroBgColor = Color(0xFFF3E5F5),
+                problem = "Users often need a simple yet powerful way to capture thoughts across different devices. Many note apps are either platform-locked or too complex. Notiq was built to provide a lightweight, consistent experience on both Android and iOS while maintaining a single codebase.",
                 architectureItems = listOf(
-                    "MVVM Pattern" to "Separation of UI and business logic for better testability and maintainability.",
-                    "Retrofit API" to "Robust network layer with custom error handling for complex financial transactions.",
-                    "Firebase Auth" to "Secure and seamless phone-based authentication for user onboarding.",
-                    "Clean UI State" to "Reactive UI updates based on backend processing status for real-time feedback."
+                    "Compose Multiplatform" to "Shared UI components across Android and iOS, ensuring a consistent design language.",
+                    "SQLDelight" to "Multiplatform database for type-safe local storage and offline capabilities.",
+                    "MVVM Pattern" to "Clear separation of concerns with shared ViewModels for both platforms.",
+                    "Koin DI" to "Dependency injection for managing shared components and platform-specific implementations."
                 ),
                 features = listOf(
-                    "e-KYC Onboarding" to "Streamlined digital verification process for instant loan eligibility.",
-                    "EMI Tracking" to "Comprehensive dashboard for users to track repayments and schedules.",
-                    "APR Transparency" to "Clear breakdown of fees and interest rates as per regulatory guidelines.",
-                    "Real-time Updates" to "Push notifications and status tracking for disbursement and approvals."
+                    "Note Management" to "Create, edit, and delete notes with a clean and intuitive interface.",
+                    "Pinning" to "Keep important notes at the top for quick access.",
+                    "Local Persistence" to "Works offline with all data stored securely on the device.",
+                    "Theme Customization" to "Support for both light and dark modes with smooth transitions."
                 ),
                 mockups = listOf(
-                    "Onboarding Flow" to Res.drawable.ic_ld_onboarding,
-                    "Login Screen" to Res.drawable.ic_ld_login,
-                    "Welcome Screen" to Res.drawable.ic_ld_welcome,
-                    "Dashboard Screen" to Res.drawable.ic_ld_dashboard,
-                    "Transfer Fund Screen" to Res.drawable.ic_ld_transfer_funds,
-                    "Payment Success Screen" to Res.drawable.ic_payment_success,
-                    "Profile Screen" to Res.drawable.ic_ld_profile,
-
-                    ),
+                    "Splash Screen" to Res.drawable.Notiq_Splash,
+                    "All Notes" to Res.drawable.All_Notes,
+                    "Pinned Note" to Res.drawable.Pinned_Note,
+                    "Create & Edit" to Res.drawable.Create_And_edit_Notes,
+                    "Settings" to Res.drawable.Setting_screen,
+                    "Light Theme" to Res.drawable.Change_light_theme
+                ),
                 challenges = listOf(
-                    "High User Load" to "Optimizing performance to handle 100K+ active users without latency issues.",
-                    "Regulatory Compliance" to "Implementing strict RBI digital lending guidelines for data privacy and transparency."
+                    "Shared Navigation" to "Implementing a unified navigation strategy that feels natural on both platforms.",
+                    "Native Integration" to "Handling platform-specific APIs like status bar colors and safe area insets."
                 ),
                 stats = listOf(
-                    Triple("100K+", "Downloads", "Achieved a significant milestone on the Google Play Store."),
-                    Triple("35%", "Crash Reduction", "Optimized app stability via systematic Firebase Crashlytics analysis."),
-                    Triple("3.8 ★", "User Rating", "Maintained a strong user satisfaction score in the competitive fintech space.")
+                    Triple("100%", "Shared UI", "Used Compose Multiplatform to share the entire user interface across platforms."),
+                    Triple("95%", "Code Sharing", "Shared almost all business logic and data layers using KMP."),
+                    Triple("Offline", "Support", "Reliable performance even without an internet connection.")
                 )
             )
             else -> CaseStudyData( // LoanDigit Partner

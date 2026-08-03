@@ -119,7 +119,8 @@ fun MyPortfolio(
                                         downloadResume = { downloadResume() },
                                         isMobile = isMobile,
                                         onViewProjectsButton = { scrollToSection(PortfolioSection.Projects) },
-                                        totalExperience = /*uiState.totalExperience*/"1.5+ years",
+                                        /*totalExperience = uiState.totalExperience*/
+                                        totalExperience = "1.5+ years",
                                         totalProductionApp = PortfolioConstants.heroData.totalProductionApps,
                                         leftBoxSummary = PortfolioConstants.heroData.summary,
                                         leftBoxHeaderText = PortfolioConstants.heroData.headerText,
