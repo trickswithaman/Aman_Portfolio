@@ -41,6 +41,19 @@ import myportfolio.composeapp.generated.resources.PF_add_transactionScreen
 import myportfolio.composeapp.generated.resources.PF_dashboard
 import myportfolio.composeapp.generated.resources.PF_insights
 import myportfolio.composeapp.generated.resources.PF_transaction_Details
+import myportfolio.composeapp.generated.resources.add_dockets_source
+import myportfolio.composeapp.generated.resources.book_docket
+import myportfolio.composeapp.generated.resources.challan_dockets_2_added
+import myportfolio.composeapp.generated.resources.challan_manifest_outgoing
+import myportfolio.composeapp.generated.resources.dashboard
+import myportfolio.composeapp.generated.resources.delivery_confirm
+import myportfolio.composeapp.generated.resources.docket_dtls
+import myportfolio.composeapp.generated.resources.login
+import myportfolio.composeapp.generated.resources.menu
+import myportfolio.composeapp.generated.resources.meter_reading_input
+import myportfolio.composeapp.generated.resources.meter_reading_list
+import myportfolio.composeapp.generated.resources.notification_list
+import myportfolio.composeapp.generated.resources.view_profile
 
 object PortfolioConstants {
     // Basic Info
@@ -108,6 +121,30 @@ object PortfolioConstants {
 
     // Projects (Main View)
     val projects = listOf(
+
+        ProjectData(
+            projectName = "Jiffy Express — LMS",
+            projectDescription = "A logistics and shipment management application designed to streamline courier operations, shipment tracking, pickup and delivery workflows, and daily operations through an offline-first architecture.",
+            skillTags = listOf(
+                "Kotlin",
+                "Jetpack Compose",
+                "Room",
+                "Retrofit",
+                "MVVM",
+                "Hilt - Dagger",
+                "Clean Architecture",
+                "ZXing"
+            ),
+            impPoints = listOf(
+                "Implemented an offline-first architecture using Room, enabling delivery agents to perform essential operations without network connectivity.",
+                "Developed unified pickup and delivery workflows with shipment lifecycle management and controlled status transitions.",
+                "Integrated QR/barcode scanning, Challan and Manifest management, and local-to-server data synchronization using REST APIs."
+            ),
+            image = Res.drawable.login,
+            imageBackgroundColor = Color(0xFFEAF1FF),
+            isShowOnMain = true
+        ),
+
         ProjectData(
             projectName = "Musklr — Gym Management System",
             projectDescription = "A cross-platform SaaS solution built with Kotlin Multiplatform to streamline gym operations, member engagement, and staff management across Android, iOS, and Web.",
@@ -180,6 +217,72 @@ object PortfolioConstants {
     // Case Studies (Detail View)
     fun getCaseStudy(projectName: String): CaseStudyData {
         return when {
+            projectName.contains("Jiffy Express") -> CaseStudyData(
+                title = "Jiffy Express\nLogistics Management System",
+                description = "A comprehensive logistics and shipment management application built to streamline courier operations, shipment processing, pickup and delivery workflows, and field operations with a reliable offline-first architecture.",
+
+                tags = listOf(
+                    "Kotlin",
+                    "Jetpack Compose",
+                    "Room",
+                    "Retrofit",
+                    "MVVM",
+                    "Hilt / Dagger",
+                    "Multi-Language Support",
+                    "Clean Architecture",
+                    "ZXing"
+                ),
+
+                heroImage = Res.drawable.dashboard,
+                heroBgColor = Color(0xFFEAF1FF),
+
+                problem = "Courier delivery operations involve multiple interconnected processes, including shipment booking, pickup, delivery, reverse logistics, challan creation, and manifest management. Unreliable internet connectivity can interrupt field operations and lead to data inconsistencies. The application was designed to provide a centralized operational platform with offline-first capabilities, enabling delivery agents to continue essential activities while maintaining reliable local data persistence and backend synchronization.",
+
+                architectureItems = listOf(
+                    "Clean Architecture" to "Separated Presentation, Domain, and Data layers to maintain modularity, testability, and scalability.",
+                    "Offline-First Architecture" to "Used Room as the local data source to support essential operational workflows without continuous internet connectivity.",
+                    "MVVM & State Management" to "Implemented reactive UI state management using ViewModels, Kotlin StateFlow, and Jetpack Compose.",
+                    "Dependency Injection" to "Used Hilt / Dagger to manage dependencies and maintain loosely coupled application components.",
+                    "API Integration" to "Integrated backend REST APIs using Retrofit for shipment operations, data retrieval, and synchronization workflows.",
+                    "Localization" to "Implemented multi-language support to make the application accessible to users across different language preferences."
+                ),
+
+                features = listOf(
+                    "Shipment Management" to "Manage shipments, docket information, booking details, and shipment lifecycle statuses.",
+                    "Pickup & Delivery" to "Unified pickup and delivery workflows with controlled status transitions, delivery confirmation, and undelivered reason handling.",
+                    "QR & Barcode Scanning" to "Scan docket numbers and shipment documents using ZXing with local persistence.",
+                    "Challan & Manifest" to "Create and manage outgoing challans, manifests, and associated docket information.",
+                    "Running Meter" to "Record vehicle meter readings with input validation, local storage, and reading history.",
+                    "Offline Synchronization" to "Persist operational data locally and manage pending synchronization with backend APIs.",
+                    "Notifications" to "Display operational notifications and important shipment-related updates.",
+                    "Multi-Language Support" to "Provide localized application content for users with different language preferences."
+                ),
+
+                mockups = listOf(
+                    "Login" to Res.drawable.login,
+                    "Dashboard" to Res.drawable.dashboard,
+                    "Courier Details" to Res.drawable.docket_dtls,
+                    "Delivery / Pickup Confirmation" to Res.drawable.delivery_confirm,
+                    "Navigation Menu" to Res.drawable.menu,
+                    "Running Meter Input" to Res.drawable.meter_reading_input,
+                    "Running Meter History" to Res.drawable.meter_reading_list,
+                    "Notifications" to Res.drawable.notification_list,
+                    "Create Docket" to Res.drawable.book_docket,
+                    "User Profile" to Res.drawable.view_profile,
+                    "Outgoing Challan" to Res.drawable.challan_manifest_outgoing,
+                    "Add Challan Dockets" to Res.drawable.add_dockets_source
+                ),
+
+                challenges = listOf(
+                    "Unreliable Network Connectivity" to "Designed offline-first persistence and synchronization workflows to keep essential field operations functional during network interruptions.",
+                    "Complex Shipment Lifecycle" to "Implemented controlled shipment status transitions covering delivery, undelivered, cancellation, RTO, and pickup operations.",
+                    "Database Migration Safety" to "Maintained Room database schema compatibility through explicit migrations without relying on destructive migration fallbacks.",
+                    "Data Consistency" to "Designed local operation tracking and status handling to prevent unintended duplicate status transitions.",
+                    "Multiple Operational Workflows" to "Organized interconnected shipment, challan, manifest, scanning, and meter-reading features within a maintainable architecture."
+                ),
+
+                stats = listOf()
+            )
             projectName.contains("Musklr") -> CaseStudyData(
                 title = "Musklr Gym\nManagement System",
                 description = "A cross-platform SaaS solution built with Kotlin Multiplatform to streamline gym operations, member engagement, and staff management across Android, iOS, and Web.",
